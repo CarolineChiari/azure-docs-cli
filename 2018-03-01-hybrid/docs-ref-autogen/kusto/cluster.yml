@@ -5,8 +5,8 @@ extensionInformation: >-
   > [!Note]
 
   > This reference is part of the **kusto** extension for the Azure CLI  (version 2.15.0 or higher).  The extension will automatically install the first time you run an **az kusto cluster** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
-summary: Manage cluster with kusto.
-description: ''
+summary: Manage Azure Kusto clusters.
+description: This module will not be supported starting January 1, 2021. Please execute "az extension add -n kusto" to install the supported Kusto extension.
 directCommands:
 - uid: az_kusto_cluster_add-language-extension
   name: az kusto cluster add-language-extension
@@ -823,4 +823,4 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
-  description: Manage cluster with kusto.
+  description: This module will not be supported starting January 1, 2021. Please execute "az extension add -n kusto" to install the supported Kusto extension.

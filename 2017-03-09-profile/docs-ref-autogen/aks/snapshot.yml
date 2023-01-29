@@ -5,7 +5,7 @@ extensionInformation: >-
   > [!Note]
 
   > This reference is part of the **aks-preview** extension for the Azure CLI  (version 2.44.0 or higher).  The extension will automatically install the first time you run an **az aks snapshot** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
-summary: Commands to manage cluster snapshots.
+summary: Commands to manage nodepool snapshots.
 description: ''
 directCommands:
 - uid: az_aks_snapshot_create
@@ -127,4 +127,4 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
-  description: Commands to manage cluster snapshots.
+  description: Commands to manage nodepool snapshots.

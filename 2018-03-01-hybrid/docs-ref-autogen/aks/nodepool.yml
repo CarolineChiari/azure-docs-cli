@@ -5,7 +5,7 @@ extensionInformation: >-
   > [!Note]
 
   > This reference is part of the **aks-preview** extension for the Azure CLI  (version 2.44.0 or higher).  The extension will automatically install the first time you run an **az aks nodepool** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
-summary: Commands to manage node pools in managed Kubernetes cluster.
+summary: Commands to manage node pools in Kubernetes kubernetes cluster.
 description: ''
 directCommands:
 - uid: az_aks_nodepool_add
@@ -669,4 +669,4 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
-  description: Commands to manage node pools in managed Kubernetes cluster.
+  description: Commands to manage node pools in Kubernetes kubernetes cluster.
