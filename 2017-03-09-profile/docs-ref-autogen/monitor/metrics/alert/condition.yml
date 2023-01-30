@@ -1,0 +1,140 @@
+### YamlMime:AzureCLIGroup
+uid: az_monitor_metrics_alert_condition
+name: az monitor metrics alert condition
+summary: Manage near-realtime metric alert rule conditions.
+description: ''
+directCommands:
+- uid: az_monitor_metrics_alert_condition_create
+  name: az monitor metrics alert condition create
+  summary: Build a metric alert rule condition.
+  description: ''
+  syntax: >-
+    az monitor metrics alert condition create --aggregation {Average, Count, Maximum, Minimum, Total}
+                                              --metric
+                                              --op {Equals, GreaterOrLessThan, GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual, NotEquals}
+                                              --type {dynamic, static}
+                                              [--dimension]
+                                              [--namespace]
+                                              [--num-periods]
+                                              [--num-violations]
+                                              [--sensitivity {High, Low, Medium}]
+                                              [--since]
+                                              [--skip-metric-validation {false, true}]
+                                              [--threshold]
+  examples:
+  - summary: Build a static condition.
+    syntax: >-
+      $dim1 = az monitor metrics alert dimension create -n dimName --op Include -v GetBlob PutBlob
+
+      $dim2 = az monitor metrics alert dimension create -n Instance --op Exclude -v Get Put
+
+      $condition = az monitor metrics alert condition create -t static 
+
+
+      --aggregation Count 
+
+
+      --metric "CPU Percentage" 
+
+
+      --op GreaterThan  
+
+
+      --threshold 95 
+
+
+      --dimension "$dim1" "$dim2"
+  - summary: Build a dynamic condition.
+    syntax: >-
+      $condition = az monitor metrics alert condition create -t dynamic 
+
+
+      --aggregation Average 
+
+
+      --metric "CPU Percentage" 
+
+
+      --op GreaterOrLessThan 
+
+
+      --num-violations 4 
+
+
+      --num-periods 4 
+
+
+      --since 2020-11-02T12:11
+  requiredParameters:
+  - isRequired: true
+    name: --aggregation
+    parameterValueGroup: "Average, Count, Maximum, Minimum, Total"
+    summary: Time aggregation.
+    description: ''
+  - isRequired: true
+    name: --metric
+    summary: Name of the metric to base the rule on.
+    description: ''
+    valueFrom: az monitor metrics list-definitions
+  - isRequired: true
+    name: --op --operator
+    parameterValueGroup: "Equals, GreaterOrLessThan, GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual, NotEquals"
+    summary: Operator for static threshold can be 'Equals', 'NotEquals', 'GreaterThan', 'GreaterThanOrEqual', 'LessThan' or 'LessThanOrEqual'. Operator for dynamic threshold can be 'GreaterThan', 'LessThan', 'GreaterOrLessThan'.
+    description: ''
+  - isRequired: true
+    name: --type -t
+    parameterValueGroup: "dynamic, static"
+    summary: Type of condition threshold.
+    description: ''
+  optionalParameters:
+  - name: --dimension
+    summary: Dimension created by 'az monitor metrics alert dimension create'.
+    description: ''
+  - name: --namespace
+    summary: Namespace of metric.
+    description: ''
+  - name: --num-periods
+    summary: 'The number of evaluation periods for dynamic threshold. Range: 1-6.'
+    description: ''
+  - name: --num-violations
+    summary: 'The number of violations to trigger an dynamic alert. Range: 1-6. It should be less than or equal to --num-periods.'
+    description: ''
+  - name: --sensitivity
+    defaultValue: "Medium"
+    parameterValueGroup: "High, Low, Medium"
+    summary: Alert sensitivity for dynamic threshold.
+    description: ''
+  - name: --since
+    summary: 'The date from which to start learning the metric historical data and calculate the dynamic thresholds. Format: date (yyyy-mm-dd) time (hh:mm:ss.xxxxx) timezone (+/-hh:mm).'
+    description: ''
+  - name: --skip-metric-validation
+    parameterValueGroup: "false, true"
+    summary: Cause the metric validation to be skipped. This allows to use a metric that has not been emitted yet.
+    description: ''
+  - name: --threshold
+    summary: Static threshold value.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/monitor/_help.py
+commands:
+- az_monitor_metrics_alert_condition_create
+globalParameters:
+- name: --debug
+  summary: Increase logging verbosity to show all debug logs.
+- name: --help -h
+  summary: Show this help message and exit.
+- name: --only-show-errors
+  summary: Only show errors, suppressing warnings.
+- name: --output -o
+  defaultValue: "json"
+  parameterValueGroup: "json, jsonc, table, tsv"
+  summary: Output format.
+- name: --query
+  summary: JMESPath query string. See <a href="http://jmespath.org/">http://jmespath.org/</a> for more information and examples.
+- name: --subscription
+  summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+- name: --verbose
+  summary: Increase logging verbosity. Use --debug for full debug logs.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 12/27/2022
+  description: Manage near-realtime metric alert rule conditions.

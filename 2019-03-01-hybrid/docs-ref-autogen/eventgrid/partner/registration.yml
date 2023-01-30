@@ -1,10 +1,6 @@
 ### YamlMime:AzureCLIGroup
 uid: az_eventgrid_partner_registration
 name: az eventgrid partner registration
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **eventgrid** extension for the Azure CLI  (version 2.0.49 or higher).  The extension will automatically install the first time you run an **az eventgrid partner registration** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage partner registrations.
 description: ''
 directCommands:
@@ -14,9 +10,7 @@ directCommands:
   description: ''
   syntax: >-
     az eventgrid partner registration create --name
-                                             --partner-name
                                              --resource-group
-                                             --resource-type-name
                                              [--authorized-subscription-ids]
                                              [--customer-service-extension]
                                              [--customer-service-number]
@@ -25,6 +19,8 @@ directCommands:
                                              [--display-name]
                                              [--logo-uri]
                                              [--long-description]
+                                             [--partner-name]
+                                             [--resource-type-name]
                                              [--setup-uri]
                                              [--tags]
   examples:
@@ -38,16 +34,8 @@ directCommands:
     summary: Name of the partner registration.
     description: ''
   - isRequired: true
-    name: --partner-name
-    summary: Official name of the partner.
-    description: ''
-  - isRequired: true
     name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
-    description: ''
-  - isRequired: true
-    name: --resource-type-name
-    summary: Name of the partner topic resource type. This name should be unique among all partner topic types names.
     description: ''
   optionalParameters:
   - name: --authorized-subscription-ids
@@ -74,12 +62,19 @@ directCommands:
   - name: --long-description
     summary: Description of the custom scenarios and integration. Length of this description should not exceed 2048 characters.
     description: ''
+  - name: --partner-name
+    summary: Official name of the partner.
+    description: ''
+  - name: --resource-type-name
+    summary: Name of the partner topic resource type. This name should be unique among all partner topic types names.
+    description: ''
   - name: --setup-uri
     summary: URI of the partner website that can be used by Azure customers to setup Event Grid integration on an event source.
     description: ''
   - name: --tags
     summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_partner_registration_delete
   name: az eventgrid partner registration delete
   summary: Delete a partner registration.
@@ -89,6 +84,7 @@ directCommands:
                                              [--name]
                                              [--resource-group]
                                              [--subscription]
+                                             [--yes]
   optionalParameters:
   - name: --ids
     summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
@@ -102,6 +98,11 @@ directCommands:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
+  - name: --yes -y
+    defaultValue: "False"
+    summary: Do not prompt for confirmation.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_partner_registration_list
   name: az eventgrid partner registration list
   summary: List all partner registrations in specific resource group or all under the specified azure subscription.
@@ -120,11 +121,12 @@ directCommands:
     syntax: az eventgrid partner registration list -g rg1 --odata-query "NOT (name eq 'name1')"
   optionalParameters:
   - name: --odata-query
-    summary: The query used to filter the results using OData syntax.
+    summary: 'The OData query used for filtering the list results. Filtering is currently allowed on the Name property only. The supported operations include: CONTAINS, eq (for equal), ne (for not equal), AND, OR and NOT.'
     description: ''
   - name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_partner_registration_show
   name: az eventgrid partner registration show
   summary: Get a partner registration.
@@ -147,6 +149,7 @@ directCommands:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 commands:
 - az_eventgrid_partner_registration_create
 - az_eventgrid_partner_registration_delete
@@ -170,4 +173,6 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 10/08/2022
   description: Manage partner registrations.

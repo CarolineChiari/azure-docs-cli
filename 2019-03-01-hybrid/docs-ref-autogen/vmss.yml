@@ -490,6 +490,29 @@ directCommands:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vmss_get-os-upgrade-history
+  name: az vmss get-os-upgrade-history
+  summary: Gets list of OS upgrades on a VM scale set instance.
+  description: ''
+  syntax: >-
+    az vmss get-os-upgrade-history [--ids]
+                                   [--name]
+                                   [--resource-group]
+                                   [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: Scale set name. You can configure the default using `az configure --defaults vmss=<name>`.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vmss_list
   name: az vmss list
   summary: List VMSS.
@@ -809,6 +832,31 @@ directCommands:
     summary: VM instance ID. If missing, show the VMSS.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vmss_simulate-eviction
+  name: az vmss simulate-eviction
+  summary: Simulate the eviction of a Spot virtual machine in a VM scale set.
+  description: ''
+  syntax: >-
+    az vmss simulate-eviction --instance-id
+                              --name
+                              --resource-group
+  examples:
+  - summary: Simulate the eviction of a Spot virtual machine in a VM scale set.
+    syntax: az vmss simulate-eviction --resource-group MyResourceGroup --name MyScaleSet --instance-id 0
+  requiredParameters:
+  - isRequired: true
+    name: --instance-id
+    summary: The instance ID of the virtual machine. Required.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Scale set name. You can configure the default using `az configure --defaults vmss=<name>`.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vmss_start
   name: az vmss start
   summary: Start VMs within a VMSS.
@@ -1059,6 +1107,9 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 commands:
+- az_vmss_application
+- az_vmss_application_list
+- az_vmss_application_set
 - az_vmss_create
 - az_vmss_deallocate
 - az_vmss_delete
@@ -1077,10 +1128,15 @@ commands:
 - az_vmss_extension_delete
 - az_vmss_extension_image
 - az_vmss_extension_image_list
+- az_vmss_extension_image_list-names
+- az_vmss_extension_image_list-versions
+- az_vmss_extension_image_show
 - az_vmss_extension_list
 - az_vmss_extension_set
 - az_vmss_extension_show
+- az_vmss_extension_upgrade
 - az_vmss_get-instance-view
+- az_vmss_get-os-upgrade-history
 - az_vmss_identity
 - az_vmss_identity_assign
 - az_vmss_identity_remove
@@ -1101,9 +1157,17 @@ commands:
 - az_vmss_rolling-upgrade_cancel
 - az_vmss_rolling-upgrade_get-latest
 - az_vmss_rolling-upgrade_start
+- az_vmss_run-command
+- az_vmss_run-command_create
+- az_vmss_run-command_delete
+- az_vmss_run-command_invoke
+- az_vmss_run-command_list
+- az_vmss_run-command_show
+- az_vmss_run-command_update
 - az_vmss_scale
 - az_vmss_set-orchestration-service-state
 - az_vmss_show
+- az_vmss_simulate-eviction
 - az_vmss_start
 - az_vmss_stop
 - az_vmss_update

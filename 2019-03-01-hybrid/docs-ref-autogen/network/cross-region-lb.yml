@@ -261,6 +261,8 @@ commands:
 - az_network_cross-region-lb_address-pool_address_remove
 - az_network_cross-region-lb_address-pool_create
 - az_network_cross-region-lb_address-pool_delete
+- az_network_cross-region-lb_address-pool_list
+- az_network_cross-region-lb_address-pool_show
 - az_network_cross-region-lb_create
 - az_network_cross-region-lb_delete
 - az_network_cross-region-lb_frontend-ip

@@ -1,10 +1,6 @@
 ### YamlMime:AzureCLIGroup
 uid: az_eventgrid_domain_topic
 name: az eventgrid domain topic
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **eventgrid** extension for the Azure CLI  (version 2.0.49 or higher).  The extension will automatically install the first time you run an **az eventgrid domain topic** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage event domain topics.
 description: ''
 directCommands:
@@ -32,6 +28,7 @@ directCommands:
     name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_domain_topic_delete
   name: az eventgrid domain topic delete
   summary: Delete a domain topic under a domain.
@@ -61,6 +58,7 @@ directCommands:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_domain_topic_list
   name: az eventgrid domain topic list
   summary: List available topics in a domain.
@@ -87,8 +85,9 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --odata-query
-    summary: The query used to filter the results using OData syntax.
+    summary: 'The OData query used for filtering the list results. Filtering is currently allowed on the Name property only. The supported operations include: CONTAINS, eq (for equal), ne (for not equal), AND, OR and NOT.'
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_domain_topic_show
   name: az eventgrid domain topic show
   summary: Get the details of a domain topic.
@@ -118,9 +117,16 @@ directCommands:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 commands:
 - az_eventgrid_domain_topic_create
 - az_eventgrid_domain_topic_delete
+- az_eventgrid_domain_topic_event-subscription
+- az_eventgrid_domain_topic_event-subscription_create
+- az_eventgrid_domain_topic_event-subscription_delete
+- az_eventgrid_domain_topic_event-subscription_list
+- az_eventgrid_domain_topic_event-subscription_show
+- az_eventgrid_domain_topic_event-subscription_update
 - az_eventgrid_domain_topic_list
 - az_eventgrid_domain_topic_show
 globalParameters:
@@ -141,4 +147,6 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 10/08/2022
   description: Manage event domain topics.

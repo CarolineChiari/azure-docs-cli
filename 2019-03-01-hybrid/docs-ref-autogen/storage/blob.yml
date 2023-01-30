@@ -674,13 +674,14 @@ directCommands:
   summary: Enable users to select/project on blob or blob snapshot data by providing simple query expressions.
   description: ''
   syntax: >-
-    az storage blob query --query-expression
+    az storage blob query --container-name
+                          --name
+                          --query-expression
                           [--account-key]
                           [--account-name]
                           [--auth-mode {key, login}]
-                          [--blob-url]
+                          [--blob-endpoint]
                           [--connection-string]
-                          [--container-name]
                           [--if-match]
                           [--if-modified-since]
                           [--if-none-match]
@@ -691,9 +692,8 @@ directCommands:
                           [--in-line-separator]
                           [--in-quote-char]
                           [--in-record-separator]
-                          [--input-format {csv, json, parquet}]
+                          [--input-format {csv, json}]
                           [--lease-id]
-                          [--name]
                           [--out-column-separator]
                           [--out-escape-char]
                           [--out-has-header]
@@ -710,16 +710,22 @@ directCommands:
     syntax: az storage blob query -c mycontainer -n myblob --query-expression "SELECT _2 from BlobStorage"
   - summary: Enable users to select/project on blob by providing simple query expressions and save in target file.
     syntax: az storage blob query -c mycontainer -n myblob --query-expression "SELECT _2 from BlobStorage" --result-file result.csv
-  - summary: Enable users to select/project on blob by providing simple query expressions and an input format
-    syntax: az storage blob query -c mycontainer -n myblob --query-expression "SELECT _2 from BlobStorage" --input-format parquet
   requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: The container name.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: The blob name.
+    description: ''
   - isRequired: true
     name: --query-expression
     summary: The query expression in SQL. The maximum size of the query expression is 256KiB. For more information about the expression syntax, please see https://docs.microsoft.com/azure/storage/blobs/query-acceleration-sql-reference.
     description: ''
   optionalParameters:
   - name: --account-key
-    summary: 'Storage account key. Must be used in conjunction with storage account name. Environment variable: AZURE_STORAGE_KEY.'
+    summary: 'Storage account key. Must be used in conjunction with storage account name or service endpoint. Environment variable: AZURE_STORAGE_KEY.'
     description: ''
   - name: --account-name
     summary: 'Storage account name. Related environment variable: AZURE_STORAGE_ACCOUNT. Must be used in conjunction with either storage account key or a SAS token. If neither are present, the command will try to query the storage account key using the authenticated Azure account. If a large number of storage commands are executed the API quota may be hit.'
@@ -728,14 +734,11 @@ directCommands:
     parameterValueGroup: "key, login"
     summary: 'The mode in which to run the command. "login" mode will directly use your login credentials for the authentication. The legacy "key" mode will attempt to query for an account key if no authentication parameters for the account are provided. Environment variable: AZURE_STORAGE_AUTH_MODE.'
     description: ''
-  - name: --blob-url
-    summary: The full endpoint URL to the Blob, including SAS token and snapshot if used. This could be either the primary endpoint, or the secondary endpoint depending on the current `location_mode`.
+  - name: --blob-endpoint
+    summary: 'Storage data service endpoint. Must be used in conjunction with either storage account key or a SAS token. You can find each service primary endpoint with `az storage account show`. Environment variable: AZURE_STORAGE_SERVICE_ENDPOINT.'
     description: ''
   - name: --connection-string
     summary: 'Storage account connection string. Environment variable: AZURE_STORAGE_CONNECTION_STRING.'
-    description: ''
-  - name: --container-name -c
-    summary: The container name.
     description: ''
   - name: --if-match
     summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
@@ -747,7 +750,7 @@ directCommands:
     summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
     description: ''
   - name: --if-unmodified-since
-    summary: Commence only if modified since supplied UTC datetime (Y-m-d'T'H:M'Z').
+    summary: Commence only if unmodified since supplied UTC datetime (Y-m-d'T'H:M'Z').
     description: ''
   - name: --in-column-separator
     defaultValue: ","
@@ -773,14 +776,11 @@ directCommands:
     summary: The string used to separate records.
     description: ''
   - name: --input-format
-    parameterValueGroup: "csv, json, parquet"
-    summary: Serialization type of the data currently stored in the blob. The default is to treat the blob data as CSV data formatted in the default dialect.The blob data will be reformatted according to that profile when blob format is specified. If you choose `json`, please specify `Input Json Text Configuration Arguments` accordingly; If you choose `csv`, please specify `Input Delimited Text Configuration Arguments`.
+    parameterValueGroup: "csv, json"
+    summary: Serialization type of the data currently stored in the blob. The default is to treat the blob data as CSV data formatted in the default dialect.The blob data will be reformatted according to that profile when blob format is specified. If you choose `json`, please specify `Output Json Text Configuration Arguments` accordingly; If you choose `csv`, please specify `Output Delimited Text Configuration Arguments`.
     description: ''
   - name: --lease-id
     summary: Required if the blob has an active lease.
-    description: ''
-  - name: --name -n
-    summary: The blob name.
     description: ''
   - name: --out-column-separator
     defaultValue: ","
@@ -807,13 +807,13 @@ directCommands:
     description: ''
   - name: --output-format
     parameterValueGroup: "csv, json"
-    summary: Output serialization type for the data stream. By default the data will be returned as it is represented in the blob. By providing an output format, the blob data will be reformatted according to that profile. If you choose `json`, please specify `Output Json Text Configuration Arguments` accordingly; If you choose `csv`, please specify `Output Delimited Text Configuration Arguments`.By default data with input_format of `parquet` will have the output_format of `csv`.
+    summary: Output serialization type for the data stream. By default the data will be returned as it is represented in the blob. By providing an output format, the blob data will be reformatted according to that profile. If you choose `json`, please specify `Output Json Text Configuration Arguments` accordingly; If you choose `csv`, please specify `Output Delimited Text Configuration Arguments`.
     description: ''
   - name: --result-file
     summary: Specify the file path to save result.
     description: ''
   - name: --sas-token
-    summary: 'A Shared Access Signature (SAS). Must be used in conjunction with storage account name. Environment variable: AZURE_STORAGE_SAS_TOKEN.'
+    summary: 'A Shared Access Signature (SAS). Must be used in conjunction with storage account name or service endpoint. Environment variable: AZURE_STORAGE_SAS_TOKEN.'
     description: ''
   - name: --tags-condition
     summary: Specify a SQL where clause on blob tags to operate only on blobs with a matching value.
@@ -821,19 +821,154 @@ directCommands:
   - name: --timeout
     summary: Request timeout in seconds. Applies to each call to the service.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_blob_restore
+  name: az storage blob restore
+  summary: Restore blobs in the specified blob ranges.
+  description: ''
+  syntax: >-
+    az storage blob restore --account-name
+                            --time-to-restore
+                            [--blob-range]
+                            [--no-wait]
+                            [--resource-group]
+  examples:
+  - summary: Restore blobs in two specified blob ranges. For examples, (container1/blob1, container2/blob2) and (container2/blob3..container2/blob4).
+    syntax: az storage blob restore --account-name mystorageaccount -g MyResourceGroup -t 2020-02-27T03:59:59Z -r container1/blob1 container2/blob2 -r container2/blob3 container2/blob4
+  - summary: Restore blobs in the specified blob ranges from account start to account end.
+    syntax: az storage blob restore --account-name mystorageaccount -g MyResourceGroup -t 2020-02-27T03:59:59Z -r "" ""
+  - summary: Restore blobs in the specified blob range.
+    syntax: >-
+      time=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
+
+      az storage blob restore --account-name mystorageaccount -g MyResourceGroup -t $time -r container0/blob1 container0/blob2
+  - summary: Restore blobs in the specified blob range without wait and query blob restore status with 'az storage account show'.
+    syntax: >-
+      time=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'`
+
+      az storage blob restore --account-name mystorageaccount -g MyResourceGroup -t $time -r container0/blob1 container0/blob2 --no-wait
+  requiredParameters:
+  - isRequired: true
+    name: --account-name -n
+    summary: The storage account name.
+    description: ''
+  - isRequired: true
+    name: --time-to-restore -t
+    summary: Restore blob to the specified time, which should be UTC datetime in (Y-m-d'T'H:M:S'Z').
+    description: ''
+  optionalParameters:
+  - name: --blob-range -r
+    summary: 'Blob ranges to restore. You need to two values to specify start_range and end_range for each blob range, e.g. -r blob1 blob2. Note: Empty means account start as start range value, and means account end for end range.'
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_blob_rewrite
+  name: az storage blob rewrite
+  summary: Create a new Block Blob where the content of the blob is read from a given URL.
+  description: The content of an existing blob is overwritten with the new blob.
+  syntax: >-
+    az storage blob rewrite --container-name
+                            --name
+                            --source-uri
+                            [--account-key]
+                            [--account-name]
+                            [--auth-mode {key, login}]
+                            [--blob-endpoint]
+                            [--connection-string]
+                            [--encryption-scope]
+                            [--if-match]
+                            [--if-modified-since]
+                            [--if-none-match]
+                            [--if-unmodified-since]
+                            [--lease-id]
+                            [--sas-token]
+                            [--tags-condition]
+                            [--tier {Archive, Cool, Hot, P10, P15, P20, P30, P4, P40, P50, P6, P60, P70, P80}]
+                            [--timeout]
+  examples:
+  - summary: Update encryption scope for existing blob.
+    syntax: az storage blob rewrite --source-uri https://srcaccount.blob.core.windows.net/mycontainer/myblob?<sastoken> --encryption-scope newscope -c mycontainer -n myblob --account-name mystorageaccount --account-key 0000-0000
+  requiredParameters:
+  - isRequired: true
+    name: --container-name -c
+    summary: The container name.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: The blob name.
+    description: ''
+  - isRequired: true
+    name: --source-uri -u
+    summary: A URL of up to 2 KB in length that specifies a file or blob. The value should be URL-encoded as it would appear in a request URI. If the source is in another account, the source must either be public or must be authenticated via a shared access signature. If the source is public, no authentication is required.
+    description: ''
+  optionalParameters:
+  - name: --account-key
+    summary: 'Storage account key. Must be used in conjunction with storage account name or service endpoint. Environment variable: AZURE_STORAGE_KEY.'
+    description: ''
+  - name: --account-name
+    summary: 'Storage account name. Related environment variable: AZURE_STORAGE_ACCOUNT. Must be used in conjunction with either storage account key or a SAS token. If neither are present, the command will try to query the storage account key using the authenticated Azure account. If a large number of storage commands are executed the API quota may be hit.'
+    description: ''
+  - name: --auth-mode
+    parameterValueGroup: "key, login"
+    summary: 'The mode in which to run the command. "login" mode will directly use your login credentials for the authentication. The legacy "key" mode will attempt to query for an account key if no authentication parameters for the account are provided. Environment variable: AZURE_STORAGE_AUTH_MODE.'
+    description: ''
+  - name: --blob-endpoint
+    summary: 'Storage data service endpoint. Must be used in conjunction with either storage account key or a SAS token. You can find each service primary endpoint with `az storage account show`. Environment variable: AZURE_STORAGE_SERVICE_ENDPOINT.'
+    description: ''
+  - name: --connection-string
+    summary: 'Storage account connection string. Environment variable: AZURE_STORAGE_CONNECTION_STRING.'
+    description: ''
+  - name: --encryption-scope
+    summary: A predefined encryption scope used to encrypt the data on the service. An encryption scope can be created using the Management API and referenced here by name. If a default encryption scope has been defined at the container, this value will override it if the container-level scope is configured to allow overrides. Otherwise an error will be raised.
+    description: ''
+  - name: --if-match
+    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag matches the value specified.
+    description: ''
+  - name: --if-modified-since
+    summary: Commence only if modified since supplied UTC datetime (Y-m-d'T'H:M'Z').
+    description: ''
+  - name: --if-none-match
+    summary: An ETag value, or the wildcard character (*). Specify this header to perform the operation only if the resource's ETag does not match the value specified. Specify the wildcard character (*) to perform the operation only if the resource does not exist, and fail the operation if it does exist.
+    description: ''
+  - name: --if-unmodified-since
+    summary: Commence only if unmodified since supplied UTC datetime (Y-m-d'T'H:M'Z').
+    description: ''
+  - name: --lease-id
+    summary: Required if the blob has an active lease. Value can be a BlobLeaseClient object or the lease ID as a string.
+    description: ''
+  - name: --sas-token
+    summary: 'A Shared Access Signature (SAS). Must be used in conjunction with storage account name or service endpoint. Environment variable: AZURE_STORAGE_SAS_TOKEN.'
+    description: ''
+  - name: --tags-condition
+    summary: Specify a SQL where clause on blob tags to operate only on blobs with a matching value.
+    description: ''
+  - name: --tier
+    parameterValueGroup: "Archive, Cool, Hot, P10, P15, P20, P30, P4, P40, P50, P6, P60, P70, P80"
+    summary: A standard blob tier value to set the blob to. For this version of the library, this is only applicable to block blobs on standard storage accounts.
+    description: ''
+  - name: --timeout
+    summary: Request timeout in seconds. Applies to each call to the service.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 - uid: az_storage_blob_set-legal-hold
   name: az storage blob set-legal-hold
   summary: Set blob legal hold.
   description: ''
   syntax: >-
-    az storage blob set-legal-hold --legal-hold {false, true}
+    az storage blob set-legal-hold --container-name
+                                   --legal-hold {false, true}
+                                   --name
                                    [--account-key]
                                    [--account-name]
                                    [--auth-mode {key, login}]
-                                   [--blob-url]
+                                   [--blob-endpoint]
                                    [--connection-string]
-                                   [--container-name]
-                                   [--name]
                                    [--sas-token]
                                    [--timeout]
   examples:
@@ -843,13 +978,21 @@ directCommands:
     syntax: az storage blob set-legal-hold --legal-hold false -c mycontainer -n myblob --account-name mystorageaccount --account-key 0000-0000
   requiredParameters:
   - isRequired: true
+    name: --container-name -c
+    summary: The container name.
+    description: ''
+  - isRequired: true
     name: --legal-hold
     parameterValueGroup: "false, true"
     summary: Specified if a legal hold should be set on the blob.
     description: ''
+  - isRequired: true
+    name: --name -n
+    summary: The blob name.
+    description: ''
   optionalParameters:
   - name: --account-key
-    summary: 'Storage account key. Must be used in conjunction with storage account name. Environment variable: AZURE_STORAGE_KEY.'
+    summary: 'Storage account key. Must be used in conjunction with storage account name or service endpoint. Environment variable: AZURE_STORAGE_KEY.'
     description: ''
   - name: --account-name
     summary: 'Storage account name. Related environment variable: AZURE_STORAGE_ACCOUNT. Must be used in conjunction with either storage account key or a SAS token. If neither are present, the command will try to query the storage account key using the authenticated Azure account. If a large number of storage commands are executed the API quota may be hit.'
@@ -858,24 +1001,19 @@ directCommands:
     parameterValueGroup: "key, login"
     summary: 'The mode in which to run the command. "login" mode will directly use your login credentials for the authentication. The legacy "key" mode will attempt to query for an account key if no authentication parameters for the account are provided. Environment variable: AZURE_STORAGE_AUTH_MODE.'
     description: ''
-  - name: --blob-url
-    summary: The full endpoint URL to the Blob, including SAS token and snapshot if used. This could be either the primary endpoint, or the secondary endpoint depending on the current `location_mode`.
+  - name: --blob-endpoint
+    summary: 'Storage data service endpoint. Must be used in conjunction with either storage account key or a SAS token. You can find each service primary endpoint with `az storage account show`. Environment variable: AZURE_STORAGE_SERVICE_ENDPOINT.'
     description: ''
   - name: --connection-string
     summary: 'Storage account connection string. Environment variable: AZURE_STORAGE_CONNECTION_STRING.'
     description: ''
-  - name: --container-name -c
-    summary: The container name.
-    description: ''
-  - name: --name -n
-    summary: The blob name.
-    description: ''
   - name: --sas-token
-    summary: 'A Shared Access Signature (SAS). Must be used in conjunction with storage account name. Environment variable: AZURE_STORAGE_SAS_TOKEN.'
+    summary: 'A Shared Access Signature (SAS). Must be used in conjunction with storage account name or service endpoint. Environment variable: AZURE_STORAGE_SAS_TOKEN.'
     description: ''
   - name: --timeout
     summary: Request timeout in seconds. Applies to each call to the service.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 - uid: az_storage_blob_set-tier
   name: az storage blob set-tier
   summary: Set the block or page tiers on the blob.
@@ -1666,6 +1804,8 @@ commands:
 - az_storage_blob_metadata_update
 - az_storage_blob_move
 - az_storage_blob_query
+- az_storage_blob_restore
+- az_storage_blob_rewrite
 - az_storage_blob_service-properties
 - az_storage_blob_service-properties_delete-policy
 - az_storage_blob_service-properties_delete-policy_show

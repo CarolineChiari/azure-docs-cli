@@ -1,10 +1,6 @@
 ### YamlMime:AzureCLIGroup
 uid: az_cosmosdb_gremlin
 name: az cosmosdb gremlin
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **cosmosdb-preview** extension for the Azure CLI  (version 2.17.1 or higher).  The extension will automatically install the first time you run an **az cosmosdb gremlin** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage Gremlin resources of Azure Cosmos DB account.
 description: ''
 directCommands:
@@ -40,6 +36,27 @@ directCommands:
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
 commands:
+- az_cosmosdb_gremlin_database
+- az_cosmosdb_gremlin_database_create
+- az_cosmosdb_gremlin_database_delete
+- az_cosmosdb_gremlin_database_exists
+- az_cosmosdb_gremlin_database_list
+- az_cosmosdb_gremlin_database_show
+- az_cosmosdb_gremlin_database_throughput
+- az_cosmosdb_gremlin_database_throughput_migrate
+- az_cosmosdb_gremlin_database_throughput_show
+- az_cosmosdb_gremlin_database_throughput_update
+- az_cosmosdb_gremlin_graph
+- az_cosmosdb_gremlin_graph_create
+- az_cosmosdb_gremlin_graph_delete
+- az_cosmosdb_gremlin_graph_exists
+- az_cosmosdb_gremlin_graph_list
+- az_cosmosdb_gremlin_graph_show
+- az_cosmosdb_gremlin_graph_throughput
+- az_cosmosdb_gremlin_graph_throughput_migrate
+- az_cosmosdb_gremlin_graph_throughput_show
+- az_cosmosdb_gremlin_graph_throughput_update
+- az_cosmosdb_gremlin_graph_update
 - az_cosmosdb_gremlin_restorable-database
 - az_cosmosdb_gremlin_restorable-database_list
 - az_cosmosdb_gremlin_restorable-graph

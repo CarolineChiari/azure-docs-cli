@@ -4,6 +4,32 @@ name: az vm
 summary: Manage Linux or Windows virtual machines.
 description: ''
 directCommands:
+- uid: az_vm_assess-patches
+  name: az vm assess-patches
+  summary: Assess patches on a VM.
+  description: ''
+  syntax: >-
+    az vm assess-patches [--ids]
+                         [--name]
+                         [--resource-group]
+                         [--subscription]
+  examples:
+  - summary: Assess patches on a VM.
+    syntax: az vm assess-patches -g MyResourceGroup -n MyVm
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: The name of the Virtual Machine. You can configure the default using `az configure --defaults vm=<name>`.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_auto-shutdown
   name: az vm auto-shutdown
   summary: Manage auto-shutdown for VM.
@@ -103,6 +129,34 @@ directCommands:
   - name: --storage-container
     defaultValue: "vhds"
     summary: The storage account container name in which to save the disks.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_convert
+  name: az vm convert
+  summary: Convert a VM with unmanaged disks to use managed disks.
+  description: ''
+  syntax: >-
+    az vm convert [--ids]
+                  [--name]
+                  [--resource-group]
+                  [--subscription]
+  examples:
+  - summary: Convert a VM with unmanaged disks to use managed disks.
+    syntax: az vm convert -g MyResourceGroup -n MyVm
+  - summary: Convert all VMs with unmanaged disks in a resource group to use managed disks.
+    syntax: az vm convert --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: The name of the Virtual Machine. You can configure the default using `az configure --defaults vm=<name>`.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -589,6 +643,82 @@ directCommands:
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_install-patches
+  name: az vm install-patches
+  summary: Install patches on a VM.
+  description: ''
+  syntax: >-
+    az vm install-patches --maximum-duration
+                          --reboot-setting {Always, IfRequired, Never}
+                          [--classifications-to-include-linux {Critical, Other, Security}]
+                          [--classifications-to-include-win {Critical, Definition, FeaturePack, Security, ServicePack, Tools, UpdateRollUp, Updates}]
+                          [--exclude-kbs-requiring-reboot {false, true}]
+                          [--ids]
+                          [--kb-numbers-to-exclude]
+                          [--kb-numbers-to-include]
+                          [--name]
+                          [--no-wait]
+                          [--package-name-masks-to-exclude]
+                          [--package-name-masks-to-include]
+                          [--resource-group]
+                          [--subscription]
+  examples:
+  - summary: Install patches on a windows VM, allowing the maximum amount of time to be 4 hours, and the VM will reboot if required during the software update operation.
+    syntax: az vm install-patches -g MyResourceGroup -n MyVm --maximum-duration PT4H --reboot-setting IfRequired --classifications-to-include-win Critical Security --exclude-kbs-requiring-reboot true
+  - summary: Install patches on a linux VM, allowing the maximum amount of time to be 4 hours, and the VM will reboot if required during the software update operation.
+    syntax: az vm install-patches -g MyResourceGroup -n MyVm --maximum-duration PT4H --reboot-setting IfRequired --classifications-to-include-linux Critical
+  requiredParameters:
+  - isRequired: true
+    name: --maximum-duration
+    summary: Specify the maximum amount of time that the operation will run. It must be an ISO 8601-compliant duration string such as PT4H (4 hours).
+    description: ''
+  - isRequired: true
+    name: --reboot-setting
+    parameterValueGroup: "Always, IfRequired, Never"
+    summary: Define when it is acceptable to reboot a VM during a software update operation.
+    description: ''
+  optionalParameters:
+  - name: --classifications-to-include-linux
+    parameterValueGroup: "Critical, Other, Security"
+    summary: Space-separated list of classifications to include for Linux VM.
+    description: ''
+  - name: --classifications-to-include-win
+    parameterValueGroup: "Critical, Definition, FeaturePack, Security, ServicePack, Tools, UpdateRollUp, Updates"
+    summary: Space-separated list of classifications to include for Windows VM.
+    description: ''
+  - name: --exclude-kbs-requiring-reboot
+    parameterValueGroup: "false, true"
+    summary: Filter out KBs that don't have a reboot behavior of 'NeverReboots' when this is set. Applicable to Windows VM only.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --kb-numbers-to-exclude
+    summary: Space-separated list of KBs to exclude in the patch operation. Applicable to Windows VM only.
+    description: ''
+  - name: --kb-numbers-to-include
+    summary: Space-separated list of KBs to include in the patch operation. Applicable to Windows VM only.
+    description: ''
+  - name: --name -n
+    summary: The name of the Virtual Machine. You can configure the default using `az configure --defaults vm=<name>`.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --package-name-masks-to-exclude
+    summary: 'Space-separated list of packages to exclude in the patch operation. Format: packageName_packageVersion. Applicable to Linux VM only.'
+    description: ''
+  - name: --package-name-masks-to-include
+    summary: 'Space-separated list of packages to include in the patch operation. Format: packageName_packageVersion. Applicable to Linux VM only.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_list
   name: az vm list
   summary: List details of Virtual Machines.
@@ -652,6 +782,44 @@ directCommands:
   - isRequired: true
     name: --location -l
     summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_list-skus
+  name: az vm list-skus
+  summary: Get details for compute-related resource SKUs.
+  description: This command incorporates subscription level restriction, offering the most accurate information.
+  syntax: >-
+    az vm list-skus [--all {false, true}]
+                    [--location]
+                    [--resource-type]
+                    [--size]
+                    [--zone {false, true}]
+  examples:
+  - summary: List all SKUs in the West US region.
+    syntax: az vm list-skus -l westus
+  - summary: List all available vm sizes in the East US2 region which support availability zone.
+    syntax: az vm list-skus -l eastus2 --zone
+  - summary: List all available vm sizes in the East US2 region which support availability zone with name like "standard_ds1...".
+    syntax: az vm list-skus -l eastus2 --zone --size standard_ds1
+  - summary: List availability set related sku information in The West US region.
+    syntax: az vm list-skus -l westus --resource-type availabilitySets
+  optionalParameters:
+  - name: --all
+    parameterValueGroup: "false, true"
+    summary: Show all information including vm sizes not available under the current subscription.
+    description: ''
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  - name: --resource-type -r
+    summary: Resource types e.g. "availabilitySets", "snapshots", "disks", etc.
+    description: ''
+  - name: --size -s
+    summary: Size name, partial name is accepted.
+    description: ''
+  - name: --zone -z
+    parameterValueGroup: "false, true"
+    summary: Show skus supporting availability zones.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 - uid: az_vm_list-usage
@@ -740,6 +908,62 @@ directCommands:
   - name: --priority
     defaultValue: "900"
     summary: Rule priority, between 100 (highest priority) and 4096 (lowest priority). Must be unique for each rule in the collection.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_perform-maintenance
+  name: az vm perform-maintenance
+  summary: The operation to perform maintenance on a virtual machine.
+  description: ''
+  syntax: >-
+    az vm perform-maintenance [--ids]
+                              [--name]
+                              [--resource-group]
+                              [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: The name of the Virtual Machine. You can configure the default using `az configure --defaults vm=<name>`.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_reapply
+  name: az vm reapply
+  summary: Reapply VMs.
+  description: ''
+  syntax: >-
+    az vm reapply [--ids]
+                  [--name]
+                  [--no-wait]
+                  [--resource-group]
+                  [--subscription]
+  examples:
+  - summary: Reapply a VM.
+    syntax: az vm reapply -g MyResourceGroup -n MyVm
+  - summary: Reapply all VMs in a resource group.
+    syntax: az vm reapply --ids $(az vm list -g MyResourceGroup --query "[].id" -o tsv)
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: The name of the Virtual Machine. You can configure the default using `az configure --defaults vm=<name>`.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
     description: ''
   - name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
@@ -887,6 +1111,32 @@ directCommands:
   - name: --show-details -d
     defaultValue: "False"
     summary: Show public ip address, FQDN, and power states. command will run slow.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vm_simulate-eviction
+  name: az vm simulate-eviction
+  summary: Simulate the eviction of a Spot VM.
+  description: ''
+  syntax: >-
+    az vm simulate-eviction [--ids]
+                            [--name]
+                            [--resource-group]
+                            [--subscription]
+  examples:
+  - summary: Simulate the eviction of a Spot VM.
+    syntax: az vm simulate-eviction --resource-group MyResourceGroup --name MyVm
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: The name of the Virtual Machine. You can configure the default using `az configure --defaults vm=<name>`.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -1123,8 +1373,13 @@ commands:
 - az_vm_aem_delete
 - az_vm_aem_set
 - az_vm_aem_verify
+- az_vm_application
+- az_vm_application_list
+- az_vm_application_set
+- az_vm_assess-patches
 - az_vm_auto-shutdown
 - az_vm_availability-set
+- az_vm_availability-set_convert
 - az_vm_availability-set_create
 - az_vm_availability-set_delete
 - az_vm_availability-set_list
@@ -1135,13 +1390,18 @@ commands:
 - az_vm_boot-diagnostics_disable
 - az_vm_boot-diagnostics_enable
 - az_vm_boot-diagnostics_get-boot-log
+- az_vm_boot-diagnostics_get-boot-log-uris
 - az_vm_capture
+- az_vm_convert
 - az_vm_create
 - az_vm_deallocate
 - az_vm_delete
 - az_vm_diagnostics
 - az_vm_diagnostics_get-default-config
 - az_vm_diagnostics_set
+- az_vm_disk
+- az_vm_disk_attach
+- az_vm_disk_detach
 - az_vm_encryption
 - az_vm_encryption_disable
 - az_vm_encryption_enable
@@ -1159,8 +1419,24 @@ commands:
 - az_vm_extension_wait
 - az_vm_generalize
 - az_vm_get-instance-view
+- az_vm_host
+- az_vm_host_create
+- az_vm_host_delete
+- az_vm_host_get-instance-view
+- az_vm_host_group
+- az_vm_host_group_create
+- az_vm_host_group_delete
+- az_vm_host_group_get-instance-view
+- az_vm_host_group_list
+- az_vm_host_group_show
+- az_vm_host_group_update
+- az_vm_host_list
+- az_vm_host_restart
+- az_vm_host_show
+- az_vm_host_update
 - az_vm_identity
 - az_vm_identity_assign
+- az_vm_identity_remove
 - az_vm_identity_show
 - az_vm_image
 - az_vm_image_accept-terms
@@ -1173,14 +1449,19 @@ commands:
 - az_vm_image_terms_accept
 - az_vm_image_terms_cancel
 - az_vm_image_terms_show
+- az_vm_install-patches
 - az_vm_list
 - az_vm_list-ip-addresses
 - az_vm_list-sizes
+- az_vm_list-skus
 - az_vm_list-usage
 - az_vm_list-vm-resize-options
 - az_vm_monitor
 - az_vm_monitor_log
 - az_vm_monitor_log_show
+- az_vm_monitor_metrics
+- az_vm_monitor_metrics_list-definitions
+- az_vm_monitor_metrics_tail
 - az_vm_nic
 - az_vm_nic_add
 - az_vm_nic_list
@@ -1188,6 +1469,8 @@ commands:
 - az_vm_nic_set
 - az_vm_nic_show
 - az_vm_open-port
+- az_vm_perform-maintenance
+- az_vm_reapply
 - az_vm_redeploy
 - az_vm_repair
 - az_vm_repair_create
@@ -1197,12 +1480,21 @@ commands:
 - az_vm_repair_run
 - az_vm_resize
 - az_vm_restart
+- az_vm_run-command
+- az_vm_run-command_create
+- az_vm_run-command_delete
+- az_vm_run-command_invoke
+- az_vm_run-command_list
+- az_vm_run-command_show
+- az_vm_run-command_update
+- az_vm_run-command_wait
 - az_vm_secret
 - az_vm_secret_add
 - az_vm_secret_format
 - az_vm_secret_list
 - az_vm_secret_remove
 - az_vm_show
+- az_vm_simulate-eviction
 - az_vm_start
 - az_vm_stop
 - az_vm_unmanaged-disk

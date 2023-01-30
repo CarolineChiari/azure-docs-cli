@@ -97,11 +97,63 @@ directCommands:
     summary: The name of the Virtual Router.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_vrouter_peering_update
+  name: az network vrouter peering update
+  summary: Update a virtual router peering.
+  description: ''
+  syntax: >-
+    az network vrouter peering update --name
+                                      --resource-group
+                                      --vrouter-name
+                                      [--add]
+                                      [--force-string]
+                                      [--peer-asn]
+                                      [--peer-ip]
+                                      [--remove]
+                                      [--set]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: The name of the Virtual Router Peering.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - isRequired: true
+    name: --vrouter-name
+    summary: The name of the Virtual Router.
+    description: ''
+  optionalParameters:
+  - name: --add
+    defaultValue: "[]"
+    summary: 'Add an object to a list of objects by specifying a path and key value pairs.  Example: --add property.listProperty <key=value, string or JSON string>.'
+    description: ''
+  - name: --force-string
+    defaultValue: "False"
+    summary: When using 'set' or 'add', preserve string literals instead of attempting to convert to JSON.
+    description: ''
+  - name: --peer-asn
+    summary: Peer ASN. Its range is from 1 to 4294967295.
+    description: ''
+  - name: --peer-ip
+    summary: Peer IP address.
+    description: ''
+  - name: --remove
+    defaultValue: "[]"
+    summary: 'Remove a property or an element from a list.  Example: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --set
+    defaultValue: "[]"
+    summary: 'Update an object by specifying a property path and value to set.  Example: --set property1.property2=<value>.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
 - az_network_vrouter_peering_create
 - az_network_vrouter_peering_delete
 - az_network_vrouter_peering_list
 - az_network_vrouter_peering_show
+- az_network_vrouter_peering_update
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.

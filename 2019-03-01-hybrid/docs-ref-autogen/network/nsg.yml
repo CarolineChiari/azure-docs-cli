@@ -235,6 +235,7 @@ commands:
 - az_network_nsg_rule_list
 - az_network_nsg_rule_show
 - az_network_nsg_rule_update
+- az_network_nsg_rule_wait
 - az_network_nsg_show
 - az_network_nsg_update
 - az_network_nsg_wait

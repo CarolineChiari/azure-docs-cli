@@ -1,10 +1,6 @@
 ### YamlMime:AzureCLIGroup
 uid: az_eventgrid_partner_namespace_event-channel
 name: az eventgrid partner namespace event-channel
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **eventgrid** extension for the Azure CLI  (version 2.0.49 or higher).  The extension will automatically install the first time you run an **az eventgrid partner namespace event-channel** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage partner event channels.
 description: ''
 directCommands:
@@ -13,9 +9,9 @@ directCommands:
   summary: Create an event channel under a partner namespace.
   description: ''
   syntax: >-
-    az eventgrid partner namespace event-channel create --desination-topic-name
-                                                        --destination-resource-group
-                                                        --destination-subscription-id
+    az eventgrid partner namespace event-channel create --destination-rg
+                                                        --destination-sub-id
+                                                        --destination-topic-name
                                                         --name
                                                         --partner-namespace-name
                                                         --resource-group
@@ -25,23 +21,23 @@ directCommands:
                                                         [--publisher-filter]
   examples:
   - summary: Create a specific event channel.
-    syntax: az eventgrid partner namespace event-channel create -g rg1 --partner-namespace-name partnernamespace1 -n eventChannelName1 --source SourceExample1 --destination-subscription-id 61f7c265-374d-499e-866d-5f4cc302b888 --destination-resource-group rg2 --desination-topic-name topicName1
+    syntax: az eventgrid partner namespace event-channel create -g rg1 --partner-namespace-name partnernamespace1 -n eventChannelName1 --source SourceExample1 --destination-sub-id 61f7c265-374d-499e-866d-5f4cc302b888 --destination-rg rg2 --destination-topic-name topicName1
   - summary: Create a specific event channel with an activation expiration time and partner topic friendly description.
-    syntax: az eventgrid partner namespace event-channel create -g rg1 --partner-namespace-name partnernamespace1 -n eventChannelName1 --source SourceExample1 --destination-subscription-id 61f7c265-374d-499e-866d-5f4cc302b888 --destination-resource-group rg2 --desination-topic-name topicName1 --activation-expiration-date '2020-05-20T10:00' --partner-topic-description 'This topic is created by Costoco corp on user behavior.'
+    syntax: az eventgrid partner namespace event-channel create -g rg1 --partner-namespace-name partnernamespace1 -n eventChannelName1 --source SourceExample1 --destination-sub-id 61f7c265-374d-499e-866d-5f4cc302b888 --destination-rg rg2 --destination-topic-name topicName1 --activation-expiration-date '2020-05-20T10:00' --partner-topic-description 'This topic is created by Costoco corp on user behavior.'
   - summary: Create a specific event channel with publisher filters.
-    syntax: az eventgrid partner namespace event-channel create -g rg1 --partner-namespace-name partnernamespace1 -n eventChannelName1 --source SourceExample1 --destination-subscription-id 61f7c265-374d-499e-866d-5f4cc302b888 --destination-resource-group rg2 --desination-topic-name topicName1 --publisher-filter data.key1 NumberIn 2 3 4 100 200 --publisher-filter data.key2 StringIn 2 3 4 100 200
+    syntax: az eventgrid partner namespace event-channel create -g rg1 --partner-namespace-name partnernamespace1 -n eventChannelName1 --source SourceExample1 --destination-sub-id 61f7c265-374d-499e-866d-5f4cc302b888 --destination-rg rg2 --destination-topic-name topicName1 --publisher-filter data.key1 NumberIn 2 3 4 100 200 --publisher-filter data.key2 StringIn 2 3 4 100 200
   requiredParameters:
   - isRequired: true
-    name: --desination-topic-name
+    name: --destination-rg
+    summary: Azure Resource Group of the subscriber requesting the creation of the channel resource by the publisher. The corresponding partner resource (either partner topic or partner destination) associated with the channel resource will be created under this resource group.
+    description: ''
+  - isRequired: true
+    name: --destination-sub-id
+    summary: Azure subscription Id of the subscriber requesting the creation of the channel resource by the publisher. The corresponding partner resource (either partner topic or partner destination) associated with the channel resource will be created under this Azure subscription.
+    description: ''
+  - isRequired: true
+    name: --destination-topic-name
     summary: Name of the partner topic associated with the event channel.
-    description: ''
-  - isRequired: true
-    name: --destination-resource-group
-    summary: Azure Resource Group of the customer creating the event channel. The partner topic associated with the event channel will be created under this resource group.
-    description: ''
-  - isRequired: true
-    name: --destination-subscription-id
-    summary: Azure subscription Id of the customer creating the event channel. The partner topic associated with the event channel will be created under this Azure subscription.
     description: ''
   - isRequired: true
     name: --name -n
@@ -96,6 +92,7 @@ directCommands:
       BoolEquals:                --publisher-filter data.property3 BoolEquals true
 
       Multiple publisher filters can be specified by using more than one `--publisher-filter` argument.
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_partner_namespace_event-channel_delete
   name: az eventgrid partner namespace event-channel delete
   summary: Delete a partner namespace.
@@ -106,6 +103,7 @@ directCommands:
                                                         [--partner-namespace-name]
                                                         [--resource-group]
                                                         [--subscription]
+                                                        [--yes]
   examples:
   - summary: Delete a specific partner namespace.
     syntax: az eventgrid partner namespace event-channel delete -g rg1 --partner-namespace-name partnernamespace1 -n eventChannelName1
@@ -125,6 +123,11 @@ directCommands:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
+  - name: --yes -y
+    defaultValue: "False"
+    summary: Do not prompt for confirmation.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_partner_namespace_event-channel_list
   name: az eventgrid partner namespace event-channel list
   summary: List available partner event-channels.
@@ -149,8 +152,9 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --odata-query
-    summary: The query used to filter the results using OData syntax.
+    summary: 'The OData query used for filtering the list results. Filtering is currently allowed on the Name property only. The supported operations include: CONTAINS, eq (for equal), ne (for not equal), AND, OR and NOT.'
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_partner_namespace_event-channel_show
   name: az eventgrid partner namespace event-channel show
   summary: Get the details of an event channel under a partner namespace.
@@ -182,6 +186,7 @@ directCommands:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 commands:
 - az_eventgrid_partner_namespace_event-channel_create
 - az_eventgrid_partner_namespace_event-channel_delete
@@ -205,4 +210,6 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 10/08/2022
   description: Manage partner event channels.

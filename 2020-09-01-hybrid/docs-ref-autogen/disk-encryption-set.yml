@@ -95,6 +95,28 @@ directCommands:
   - name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
+- uid: az_disk-encryption-set_list-associated-resources
+  name: az disk-encryption-set list-associated-resources
+  summary: Lists all resources that are encrypted with this disk encryption set.
+  description: ''
+  syntax: >-
+    az disk-encryption-set list-associated-resources [--ids]
+                                                     [--name]
+                                                     [--resource-group]
+                                                     [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: Name of disk encryption set.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
 - uid: az_disk-encryption-set_show
   name: az disk-encryption-set show
   summary: Get information of a disk encryption sets.
@@ -180,7 +202,12 @@ directCommands:
 commands:
 - az_disk-encryption-set_create
 - az_disk-encryption-set_delete
+- az_disk-encryption-set_identity
+- az_disk-encryption-set_identity_assign
+- az_disk-encryption-set_identity_remove
+- az_disk-encryption-set_identity_show
 - az_disk-encryption-set_list
+- az_disk-encryption-set_list-associated-resources
 - az_disk-encryption-set_show
 - az_disk-encryption-set_update
 globalParameters:

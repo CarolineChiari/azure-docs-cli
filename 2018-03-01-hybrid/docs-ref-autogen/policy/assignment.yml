@@ -175,7 +175,15 @@ directCommands:
 commands:
 - az_policy_assignment_create
 - az_policy_assignment_delete
+- az_policy_assignment_identity
+- az_policy_assignment_identity_assign
+- az_policy_assignment_identity_remove
+- az_policy_assignment_identity_show
 - az_policy_assignment_list
+- az_policy_assignment_non-compliance-message
+- az_policy_assignment_non-compliance-message_create
+- az_policy_assignment_non-compliance-message_delete
+- az_policy_assignment_non-compliance-message_list
 - az_policy_assignment_show
 - az_policy_assignment_update
 globalParameters:

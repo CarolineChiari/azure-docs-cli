@@ -4,6 +4,31 @@ name: az keyvault certificate
 summary: Manage certificates.
 description: ''
 directCommands:
+- uid: az_keyvault_certificate_backup
+  name: az keyvault certificate backup
+  summary: Backs up the specified certificate.
+  description: Requests that a backup of the specified certificate be downloaded to the client. All versions of the certificate will be downloaded. This operation requires the certificates/backup permission.
+  syntax: >-
+    az keyvault certificate backup --file
+                                   [--id]
+                                   [--name]
+                                   [--vault-name]
+  requiredParameters:
+  - isRequired: true
+    name: --file -f
+    summary: Local file path in which to store certificate backup.
+    description: ''
+  optionalParameters:
+  - name: --id
+    summary: Id of the certificate. If specified all other 'Id' arguments should be omitted.
+    description: ''
+  - name: --name -n
+    summary: Name of the certificate. Required if --id is not specified.
+    description: ''
+  - name: --vault-name
+    summary: Name of the Key Vault. Required if --id is not specified.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_certificate_create
   name: az keyvault certificate create
   summary: Create a Key Vault certificate.
@@ -305,6 +330,23 @@ directCommands:
     summary: Name of the Vault. Required if --id is not specified.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_certificate_restore
+  name: az keyvault certificate restore
+  summary: Restores a backed up certificate to a vault.
+  description: Restores a backed up certificate, and all its versions, to a vault. This operation requires the certificates/restore permission.
+  syntax: >-
+    az keyvault certificate restore --file
+                                    --vault-name
+  requiredParameters:
+  - isRequired: true
+    name: --file -f
+    summary: Local certificate backup from which to restore certificate.
+    description: ''
+  - isRequired: true
+    name: --vault-name
+    summary: Name of the Vault.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_certificate_set-attributes
   name: az keyvault certificate set-attributes
   summary: Updates the specified attributes associated with the given certificate.
@@ -384,6 +426,7 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 commands:
+- az_keyvault_certificate_backup
 - az_keyvault_certificate_contact
 - az_keyvault_certificate_contact_add
 - az_keyvault_certificate_contact_delete
@@ -412,6 +455,7 @@ commands:
 - az_keyvault_certificate_pending_show
 - az_keyvault_certificate_purge
 - az_keyvault_certificate_recover
+- az_keyvault_certificate_restore
 - az_keyvault_certificate_set-attributes
 - az_keyvault_certificate_show
 - az_keyvault_certificate_show-deleted

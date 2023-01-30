@@ -1,10 +1,6 @@
 ### YamlMime:AzureCLIGroup
 uid: az_cosmosdb_restorable-database-account
 name: az cosmosdb restorable-database-account
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **cosmosdb-preview** extension for the Azure CLI  (version 2.17.1 or higher).  The extension will automatically install the first time you run an **az cosmosdb restorable-database-account** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage restorable Azure Cosmos DB accounts.
 description: ''
 directCommands:
@@ -22,6 +18,7 @@ directCommands:
   - name: --location -l
     summary: Location.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cosmosdb/_help.py
 - uid: az_cosmosdb_restorable-database-account_show
   name: az cosmosdb restorable-database-account show
   summary: Show the details of a database account that can be restored.
@@ -36,6 +33,7 @@ directCommands:
   - name: --location -l
     summary: Location.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/cosmosdb/_help.py
 commands:
 - az_cosmosdb_restorable-database-account_list
 - az_cosmosdb_restorable-database-account_show
@@ -57,4 +55,6 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 09/21/2022
   description: Manage restorable Azure Cosmos DB accounts.

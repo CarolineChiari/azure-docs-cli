@@ -200,6 +200,9 @@ commands:
 - az_vmss_extension_delete
 - az_vmss_extension_image
 - az_vmss_extension_image_list
+- az_vmss_extension_image_list-names
+- az_vmss_extension_image_list-versions
+- az_vmss_extension_image_show
 - az_vmss_extension_list
 - az_vmss_extension_set
 - az_vmss_extension_show

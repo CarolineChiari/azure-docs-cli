@@ -1,10 +1,6 @@
 ### YamlMime:AzureCLIGroup
 uid: az_netappfiles_snapshot
 name: az netappfiles snapshot
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **netappfiles-preview** extension for the Azure CLI  (version 2.0.56 or higher).  The extension will automatically install the first time you run an **az netappfiles snapshot** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage Azure NetApp Files (ANF) Snapshot Resources.
 description: ''
 directCommands:
@@ -14,23 +10,23 @@ directCommands:
   description: ''
   syntax: >-
     az netappfiles snapshot create --account-name
-                                   --location
+                                   --name
                                    --pool-name
                                    --resource-group
-                                   --snapshot-name
                                    --volume-name
-                                   [--file-system-id]
+                                   [--location]
+                                   [--no-wait]
   examples:
   - summary: Create an ANF snapshot
-    syntax: az netappfiles snapshot create -g group --account-name account-name --pool-name pname --volume-name vname --snapshot-name sname -l location --file-system-id volume-uuid
+    syntax: az netappfiles snapshot create -g mygroup --account-name myaccname --pool-name mypoolname --volume-name myvolname --name mysnapname -l eastus
   requiredParameters:
   - isRequired: true
     name: --account-name -a
     summary: The name of the ANF account.
     description: ''
   - isRequired: true
-    name: --location -l
-    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    name: --name --snapshot-name -n -s
+    summary: The name of the ANF snapshot.
     description: ''
   - isRequired: true
     name: --pool-name -p
@@ -41,17 +37,18 @@ directCommands:
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
   - isRequired: true
-    name: --snapshot-name -n -s
-    summary: The name of the ANF snapshot.
-    description: ''
-  - isRequired: true
     name: --volume-name -v
     summary: The name of the ANF volume.
     description: ''
   optionalParameters:
-  - name: --file-system-id
-    summary: The uuid of the volume.
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
     description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/netappfiles/_help.py
 - uid: az_netappfiles_snapshot_delete
   name: az netappfiles snapshot delete
   summary: Delete the specified ANF snapshot.
@@ -59,14 +56,15 @@ directCommands:
   syntax: >-
     az netappfiles snapshot delete [--account-name]
                                    [--ids]
+                                   [--name]
+                                   [--no-wait]
                                    [--pool-name]
                                    [--resource-group]
-                                   [--snapshot-name]
                                    [--subscription]
                                    [--volume-name]
   examples:
   - summary: Delete an ANF snapshot
-    syntax: az netappfiles snapshot delete -g group --account-name aname --pool-name pname --volume-name vname --snapshot-name sname
+    syntax: az netappfiles snapshot delete -g mygroup --account-name myaccname --pool-name mypoolname --volume-name myvolname --name mysnapname
   optionalParameters:
   - name: --account-name -a
     summary: The name of the ANF account.
@@ -74,14 +72,18 @@ directCommands:
   - name: --ids
     summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
     description: ''
+  - name: --name --snapshot-name -n -s
+    summary: The name of the ANF snapshot.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
   - name: --pool-name -p
     summary: The name of the ANF pool.
     description: ''
   - name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
-    description: ''
-  - name: --snapshot-name -n -s
-    summary: The name of the ANF snapshot.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -89,6 +91,7 @@ directCommands:
   - name: --volume-name -v
     summary: The name of the ANF volume.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/netappfiles/_help.py
 - uid: az_netappfiles_snapshot_list
   name: az netappfiles snapshot list
   summary: List the snapshots of an ANF volume.
@@ -100,7 +103,7 @@ directCommands:
                                  --volume-name
   examples:
   - summary: list the snapshots of an ANF volume
-    syntax: az netappfiles snapshot list -g group --account-name aname --pool-name pname --volume-name vname
+    syntax: az netappfiles snapshot list -g mygroup --account-name myaccname --pool-name mypoolname --volume-name myvolname
   requiredParameters:
   - isRequired: true
     name: --account-name -a
@@ -115,30 +118,49 @@ directCommands:
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
   - isRequired: true
-    name: --volume-name -n -v
+    name: --volume-name -v
     summary: The name of the ANF volume.
     description: ''
-- uid: az_netappfiles_snapshot_show
-  name: az netappfiles snapshot show
-  summary: Get the specified ANF snapshot.
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/netappfiles/_help.py
+- uid: az_netappfiles_snapshot_restore-files
+  name: az netappfiles snapshot restore-files
+  summary: Restore specified files from the specified snapshot to the active filesystem.
   description: ''
   syntax: >-
-    az netappfiles snapshot show [--account-name]
-                                 [--ids]
-                                 [--pool-name]
-                                 [--resource-group]
-                                 [--snapshot-name]
-                                 [--subscription]
-                                 [--volume-name]
+    az netappfiles snapshot restore-files --file-paths
+                                          [--account-name]
+                                          [--destination-path]
+                                          [--ids]
+                                          [--name]
+                                          [--no-wait]
+                                          [--pool-name]
+                                          [--resource-group]
+                                          [--subscription]
+                                          [--volume-name]
   examples:
-  - summary: Return the specified ANF snapshot
-    syntax: az netappfiles snapshot show -g group --account-name aname --pool-name pname --volume-name vname --snapshot-name sname
+  - summary: Restore files from snapshot
+    syntax: az netappfiles snapshot restore-files -g mygroup --account-name myaccname --pool-name mypoolname --volume-name myvolname --name mysnapname --file-paths myfilepaths
+  requiredParameters:
+  - isRequired: true
+    name: --file-paths
+    summary: Required. A space separated string of filed to be restored.
+    description: ''
   optionalParameters:
   - name: --account-name -a
     summary: The name of the ANF account.
     description: ''
+  - name: --destination-path
+    summary: Destination folder where the files will be restored.
+    description: ''
   - name: --ids
     summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name --snapshot-name -n -s
+    summary: The name of the ANF snapshot.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
     description: ''
   - name: --pool-name -p
     summary: The name of the ANF pool.
@@ -146,8 +168,43 @@ directCommands:
   - name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
-  - name: --snapshot-name -n -s
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --volume-name -v
+    summary: The name of the ANF volume.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/netappfiles/_help.py
+- uid: az_netappfiles_snapshot_show
+  name: az netappfiles snapshot show
+  summary: Get the specified ANF snapshot.
+  description: ''
+  syntax: >-
+    az netappfiles snapshot show [--account-name]
+                                 [--ids]
+                                 [--name]
+                                 [--pool-name]
+                                 [--resource-group]
+                                 [--subscription]
+                                 [--volume-name]
+  examples:
+  - summary: Return the specified ANF snapshot
+    syntax: az netappfiles snapshot show -g mygroup --account-name myaccname --pool-name mypoolname --volume-name myvolname --name mysnapname
+  optionalParameters:
+  - name: --account-name -a
+    summary: The name of the ANF account.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name --snapshot-name -n -s
     summary: The name of the ANF snapshot.
+    description: ''
+  - name: --pool-name -p
+    summary: The name of the ANF pool.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -155,11 +212,138 @@ directCommands:
   - name: --volume-name -v
     summary: The name of the ANF volume.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/netappfiles/_help.py
+- uid: az_netappfiles_snapshot_update
+  name: az netappfiles snapshot update
+  summary: Update a snapshot.
+  description: Patch a snapshot.
+  syntax: >-
+    az netappfiles snapshot update --body
+                                   [--account-name]
+                                   [--ids]
+                                   [--name]
+                                   [--no-wait]
+                                   [--pool-name]
+                                   [--resource-group]
+                                   [--subscription]
+                                   [--volume-name]
+  requiredParameters:
+  - isRequired: true
+    name: --body
+    summary: Snapshot object supplied in the body of the operation. Required.
+    description: ''
+  optionalParameters:
+  - name: --account-name -a
+    summary: Name of the ANF account.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name --snapshot-name -n -s
+    summary: The name of the ANF snapshot.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --pool-name -p
+    summary: Name of the ANF pool.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --volume-name -v
+    summary: Name of the ANF volume.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/netappfiles/_help.py
+- uid: az_netappfiles_snapshot_wait
+  name: az netappfiles snapshot wait
+  summary: Wait for a snapshot operation.
+  description: ''
+  syntax: >-
+    az netappfiles snapshot wait [--account-name]
+                                 [--created]
+                                 [--custom]
+                                 [--deleted]
+                                 [--exists]
+                                 [--ids]
+                                 [--interval]
+                                 [--name]
+                                 [--pool-name]
+                                 [--resource-group]
+                                 [--subscription]
+                                 [--timeout]
+                                 [--updated]
+                                 [--volume-name]
+  optionalParameters:
+  - name: --account-name -a
+    summary: Name of the ANF account.
+    description: ''
+  - name: --created
+    defaultValue: "False"
+    summary: Wait until created with 'provisioningState' at 'Succeeded'.
+    description: ''
+  - name: --custom
+    summary: Wait until the condition satisfies a custom JMESPath query. E.g. provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running'].
+    description: ''
+  - name: --deleted
+    defaultValue: "False"
+    summary: Wait until deleted.
+    description: ''
+  - name: --exists
+    defaultValue: "False"
+    summary: Wait until the resource exists.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Polling interval in seconds.
+    description: ''
+  - name: --name --snapshot-name -n -s
+    summary: The name of the ANF snapshot.
+    description: ''
+  - name: --pool-name -p
+    summary: Name of the ANF pool.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximum wait in seconds.
+    description: ''
+  - name: --updated
+    defaultValue: "False"
+    summary: Wait until updated with provisioningState at 'Succeeded'.
+    description: ''
+  - name: --volume-name -v
+    summary: Name of the ANF volume.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/netappfiles/_help.py
 commands:
 - az_netappfiles_snapshot_create
 - az_netappfiles_snapshot_delete
 - az_netappfiles_snapshot_list
+- az_netappfiles_snapshot_policy
+- az_netappfiles_snapshot_policy_create
+- az_netappfiles_snapshot_policy_delete
+- az_netappfiles_snapshot_policy_list
+- az_netappfiles_snapshot_policy_show
+- az_netappfiles_snapshot_policy_update
+- az_netappfiles_snapshot_policy_volumes
+- az_netappfiles_snapshot_policy_wait
+- az_netappfiles_snapshot_restore-files
 - az_netappfiles_snapshot_show
+- az_netappfiles_snapshot_update
+- az_netappfiles_snapshot_wait
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.
@@ -178,4 +362,6 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/03/2023
   description: Manage Azure NetApp Files (ANF) Snapshot Resources.

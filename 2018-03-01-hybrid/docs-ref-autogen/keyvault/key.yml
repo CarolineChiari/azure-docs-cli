@@ -516,6 +516,27 @@ directCommands:
     summary: Name of the Vault.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_random
+  name: az keyvault key random
+  summary: Get the requested number of random bytes from a managed HSM.
+  description: ''
+  syntax: >-
+    az keyvault key random --count
+                           [--hsm-name]
+                           [--id]
+  requiredParameters:
+  - isRequired: true
+    name: --count
+    summary: The requested number of random bytes.
+    description: ''
+  optionalParameters:
+  - name: --hsm-name
+    summary: Name of the HSM.
+    description: ''
+  - name: --id
+    summary: Full URI of the HSM.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_key_recover
   name: az keyvault key recover
   summary: Recover the deleted key to its latest version.
@@ -586,6 +607,29 @@ directCommands:
     description: ''
   - name: --storage-resource-uri -u
     summary: Azure Blob storage container Uri. If specified, all other 'Storage Id' arguments should be omitted.
+    description: ''
+  - name: --vault-name
+    summary: Name of the Vault.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_key_rotate
+  name: az keyvault key rotate
+  summary: Rotate the key based on the key policy by generating a new version of the key.
+  description: ''
+  syntax: >-
+    az keyvault key rotate [--hsm-name]
+                           [--id]
+                           [--name]
+                           [--vault-name]
+  optionalParameters:
+  - name: --hsm-name
+    summary: Name of the HSM. (--hsm-name and --vault-name are mutually exclusive, please specify just one of them).
+    description: ''
+  - name: --id
+    summary: Id of the key. If specified all other 'Id' arguments should be omitted.
+    description: ''
+  - name: --name -n
+    summary: Name of the key. Required if --id is not specified.
     description: ''
   - name: --vault-name
     summary: Name of the Vault.
@@ -712,8 +756,13 @@ commands:
 - az_keyvault_key_list-deleted
 - az_keyvault_key_list-versions
 - az_keyvault_key_purge
+- az_keyvault_key_random
 - az_keyvault_key_recover
 - az_keyvault_key_restore
+- az_keyvault_key_rotate
+- az_keyvault_key_rotation-policy
+- az_keyvault_key_rotation-policy_show
+- az_keyvault_key_rotation-policy_update
 - az_keyvault_key_set-attributes
 - az_keyvault_key_show
 - az_keyvault_key_show-deleted

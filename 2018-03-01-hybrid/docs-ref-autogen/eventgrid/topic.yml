@@ -1,10 +1,6 @@
 ### YamlMime:AzureCLIGroup
 uid: az_eventgrid_topic
 name: az eventgrid topic
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **eventgrid** extension for the Azure CLI  (version 2.0.49 or higher).  The extension will automatically install the first time you run an **az eventgrid topic** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage Azure Event Grid topics.
 description: ''
 directCommands:
@@ -13,14 +9,19 @@ directCommands:
   summary: Create a topic.
   description: ''
   syntax: >-
-    az eventgrid topic create --location
-                              --name
+    az eventgrid topic create --name
                               --resource-group
+                              [--extended-location-name]
+                              [--extended-location-type {customlocation}]
                               [--identity {noidentity, systemassigned}]
                               [--inbound-ip-rules]
                               [--input-mapping-default-values]
                               [--input-mapping-fields]
                               [--input-schema {cloudeventschemav1_0, customeventschema, eventgridschema}]
+                              [--kind {azure, azurearc}]
+                              [--location]
+                              [--mi-system-assigned]
+                              [--mi-user-assigned]
                               [--public-network-access {disabled, enabled}]
                               [--sku {basic, premium}]
                               [--tags]
@@ -33,11 +34,13 @@ directCommands:
     syntax: az eventgrid topic create -g rg1 --name topic1 -l westus2 --input-schema cloudeventschemav1_0
   - summary: Create a new topic which allows specific inbound ip rules with Basic Sku and system assigned identity
     syntax: az eventgrid topic create -g rg1 --name topic1 -l westus2 --public-network-access enabled --inbound-ip-rules 10.0.0.0/8 Allow --inbound-ip-rules 10.2.0.0/8 Allow --sku Basic --identity systemassigned
+  - summary: Create a new topic in Azure.
+    syntax: az eventgrid topic create -g rg1 --name topic1 -l westus2
+  - summary: Create a new topic in Azure.
+    syntax: az eventgrid topic create -g rg1 --name topic1 -l westus2 --kind azure
+  - summary: Create a new topic in AzureArc targeting a custom location.
+    syntax: az eventgrid topic create -g rg1 --name topic1 -l eastus2euap --kind azurearc --extended-location-name /subscriptions/<subid>/resourcegroups/<rgname>/providers/microsoft.extendedlocation/customlocations/<cust-loc-name> --extended-location-type customlocation --input-schema CloudEventSchemaV1_0
   requiredParameters:
-  - isRequired: true
-    name: --location -l
-    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
-    description: ''
   - isRequired: true
     name: --name -n
     summary: Name of the topic.
@@ -47,9 +50,16 @@ directCommands:
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
   optionalParameters:
+  - name: --extended-location-name
+    summary: The extended location name if kind==azurearc.
+    description: ''
+  - name: --extended-location-type
+    parameterValueGroup: "customlocation"
+    summary: The extended location type if kind==azurearc.
+    description: ''
   - name: --identity
     parameterValueGroup: "noidentity, systemassigned"
-    summary: The identity type of the resource (e.g., topic or domain).
+    summary: The managed identity type for the resource. Will be deprecated and replaced by --mi-system-assigned-identity in future.
     description: ''
   - name: --inbound-ip-rules
     summary: List of inbound IP rules.
@@ -65,6 +75,20 @@ directCommands:
     parameterValueGroup: "cloudeventschemav1_0, customeventschema, eventgridschema"
     summary: Schema in which incoming events will be published to this topic/domain. If you specify customeventschema as the value for this parameter, you must also provide values for at least one of --input_mapping_default_values / --input_mapping_fields.
     description: ''
+  - name: --kind
+    defaultValue: "Azure"
+    parameterValueGroup: "azure, azurearc"
+    summary: The kind of topic resource.
+    description: ''
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  - name: --mi-system-assigned
+    summary: Presence of this param indicates that SystemAssigned managed identity will be used.
+    description: ''
+  - name: --mi-user-assigned
+    summary: Add user assigned identities when identityType is user or mixed. This attribute is valid for all destination types except StorageQueue. Multiple attributes can be specified by using more than one `--mi-user-assigned` argument.
+    description: ''
   - name: --public-network-access
     parameterValueGroup: "disabled, enabled"
     summary: This determines if traffic is allowed over public network. By default it is enabled. You can further restrict to specific IPs by configuring.
@@ -77,6 +101,7 @@ directCommands:
   - name: --tags
     summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_topic_delete
   name: az eventgrid topic delete
   summary: Delete a topic.
@@ -102,6 +127,7 @@ directCommands:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_topic_list
   name: az eventgrid topic list
   summary: List available topics.
@@ -120,11 +146,12 @@ directCommands:
     syntax: az eventgrid topic list -g rg1 --odata-query "NOT (name eq 'name1')"
   optionalParameters:
   - name: --odata-query
-    summary: The query used to filter the results using OData syntax.
+    summary: 'The OData query used for filtering the list results. Filtering is currently allowed on the Name property only. The supported operations include: CONTAINS, eq (for equal), ne (for not equal), AND, OR and NOT.'
     description: ''
   - name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_topic_show
   name: az eventgrid topic show
   summary: Get the details of a topic.
@@ -152,6 +179,7 @@ directCommands:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 - uid: az_eventgrid_topic_update
   name: az eventgrid topic update
   summary: Update a topic.
@@ -160,6 +188,8 @@ directCommands:
     az eventgrid topic update [--identity {noidentity, systemassigned}]
                               [--ids]
                               [--inbound-ip-rules]
+                              [--mi-system-assigned]
+                              [--mi-user-assigned]
                               [--name]
                               [--public-network-access {disabled, enabled}]
                               [--resource-group]
@@ -172,7 +202,7 @@ directCommands:
   optionalParameters:
   - name: --identity
     parameterValueGroup: "noidentity, systemassigned"
-    summary: The identity type of the resource (e.g., topic or domain).
+    summary: The managed identity type for the resource. Will be deprecated and replaced by --mi-system-assigned-identity in future.
     description: ''
   - name: --ids
     summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
@@ -180,6 +210,12 @@ directCommands:
   - name: --inbound-ip-rules
     summary: List of inbound IP rules specifying IP Address in CIDR notation e.g., 10.0.0.0/8 along with corresponding Action to perform based on the match or no match of the IpMask. Possible values include - Allow.
     description: List of inbound IP rules specifying IP Address in CIDR notation e.g., 10.0.0.0/8 along with corresponding Action to perform based on the match or no match of the IpMask. Possible values include - Allow.
+  - name: --mi-system-assigned
+    summary: Presence of this param indicates that SystemAssigned managed identity will be used.
+    description: ''
+  - name: --mi-user-assigned
+    summary: Add user assigned identities when identityType is user or mixed. This attribute is valid for all destination types except StorageQueue. Multiple attributes can be specified by using more than one `--mi-user-assigned` argument.
+    description: ''
   - name: --name -n
     summary: Name of the topic.
     description: ''
@@ -200,9 +236,16 @@ directCommands:
   - name: --tags
     summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/eventgrid/_help.py
 commands:
 - az_eventgrid_topic_create
 - az_eventgrid_topic_delete
+- az_eventgrid_topic_event-subscription
+- az_eventgrid_topic_event-subscription_create
+- az_eventgrid_topic_event-subscription_delete
+- az_eventgrid_topic_event-subscription_list
+- az_eventgrid_topic_event-subscription_show
+- az_eventgrid_topic_event-subscription_update
 - az_eventgrid_topic_key
 - az_eventgrid_topic_key_list
 - az_eventgrid_topic_key_regenerate

@@ -1,12 +1,8 @@
 ### YamlMime:AzureCLIGroup
 uid: az_managed-cassandra_cluster
 name: az managed-cassandra cluster
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **cosmosdb-preview** extension for the Azure CLI  (version 2.17.1 or higher).  The extension will automatically install the first time you run an **az managed-cassandra cluster** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Azure Managed Cassandra Cluster.
-description: See https://docs.microsoft.com/en-us/azure/managed-instance-apache-cassandra/manage-resources-cli for Cassandra API samples.
+description: ''
 directCommands:
 - uid: az_managed-cassandra_cluster_create
   name: az managed-cassandra cluster create
@@ -17,7 +13,7 @@ directCommands:
                                         --delegated-management-subnet-id
                                         --location
                                         --resource-group
-                                        [--authentication-method {Cassandra, Ldap, None}]
+                                        [--authentication-method {Cassandra, None}]
                                         [--cassandra-version]
                                         [--client-certificates]
                                         [--cluster-name-override]
@@ -27,7 +23,7 @@ directCommands:
                                         [--identity-type {None, SystemAssigned}]
                                         [--initial-cassandra-admin-password]
                                         [--no-wait]
-                                        [--repair-enabled]
+                                        [--repair-enabled {false, true}]
                                         [--restore-from-backup-id]
                                         [--tags]
   examples:
@@ -63,8 +59,8 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --authentication-method
-    parameterValueGroup: "Cassandra, Ldap, None"
-    summary: Authentication mode can be None, Cassandra or Ldap. If None, no authentication will be required to connect to the Cassandra API. If Cassandra, then passwords will be used. Ldap is in preview.
+    parameterValueGroup: "Cassandra, None"
+    summary: Authentication mode can be None or Cassandra. If None, no authentication will be required to connect to the Cassandra API. If Cassandra, then passwords will be used.
     description: ''
   - name: --cassandra-version
     summary: The version of Cassandra chosen.
@@ -97,6 +93,7 @@ directCommands:
     summary: Do not wait for the long-running operation to finish.
     description: ''
   - name: --repair-enabled
+    parameterValueGroup: "false, true"
     summary: Enables automatic repair.
     description: ''
   - name: --restore-from-backup-id
@@ -104,6 +101,31 @@ directCommands:
     description: ''
   - name: --tags
     summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
+    description: ''
+- uid: az_managed-cassandra_cluster_deallocate
+  name: az managed-cassandra cluster deallocate
+  summary: Deallocate the Managed Cassandra Cluster and Associated Data Centers. Deallocation will deallocate the host virtual machine of this cluster, and reserved the data disk. This won't do anything on an already deallocated cluster. Use Start to restart the cluster.
+  description: ''
+  syntax: >-
+    az managed-cassandra cluster deallocate --cluster-name
+                                            --resource-group
+                                            [--no-wait]
+  examples:
+  - summary: This command deallocates this cluster.
+    syntax: az managed-cassandra cluster deallocate --resource-group MyResourceGroup --cluster-name MyCluster
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Cluster Name.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
     description: ''
 - uid: az_managed-cassandra_cluster_delete
   name: az managed-cassandra cluster delete
@@ -134,6 +156,55 @@ directCommands:
   - name: --yes -y
     defaultValue: "False"
     summary: Do not prompt for confirmation.
+    description: ''
+- uid: az_managed-cassandra_cluster_invoke-command
+  name: az managed-cassandra cluster invoke-command
+  summary: Invoke a command like nodetool for cassandra maintenance.
+  description: ''
+  syntax: >-
+    az managed-cassandra cluster invoke-command --cluster-name
+                                                --command-name
+                                                --host
+                                                --resource-group
+                                                [--arguments]
+                                                [--cassandra-stop-start {false, true}]
+                                                [--no-wait]
+                                                [--readwrite {false, true}]
+  examples:
+  - summary: This command runs nodetool with these arguments in a host node of the cluster.
+    syntax: az managed-cassandra cluster invoke-command --resource-group MyResourceGroup --cluster-name MyCluster --host "10.0.1.12" --command-name "nodetool" --arguments arg1="value1" arg2="value2" arg3="value3"
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Cluster Name.
+    description: ''
+  - isRequired: true
+    name: --command-name
+    summary: The command which should be run.
+    description: ''
+  - isRequired: true
+    name: --host
+    summary: IP address of the cassandra host to run the command on.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --arguments
+    summary: The key="value" of arguments for the command.
+    description: ''
+  - name: --cassandra-stop-start
+    parameterValueGroup: "false, true"
+    summary: If true, stops cassandra before executing the command and then start it again.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --readwrite
+    parameterValueGroup: "false, true"
+    summary: If true, allows the command to *write* to the cassandra directory, otherwise read-only.
     description: ''
 - uid: az_managed-cassandra_cluster_list
   name: az managed-cassandra cluster list
@@ -168,6 +239,50 @@ directCommands:
     name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
+- uid: az_managed-cassandra_cluster_start
+  name: az managed-cassandra cluster start
+  summary: Start the Managed Cassandra Cluster and Associated Data Centers. Start will start the host virtual machine of this cluster with reserved data disk. This won't do anything on an already running cluster. Use Deallocate to deallocate the cluster.
+  description: ''
+  syntax: >-
+    az managed-cassandra cluster start --cluster-name
+                                       --resource-group
+                                       [--no-wait]
+  examples:
+  - summary: This command starts this cluster.
+    syntax: az managed-cassandra cluster start --resource-group MyResourceGroup --cluster-name MyCluster
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Cluster Name.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+- uid: az_managed-cassandra_cluster_status
+  name: az managed-cassandra cluster status
+  summary: Gets the CPU, memory, and disk usage statistics for each Cassandra node in a cluster.
+  description: ''
+  syntax: >-
+    az managed-cassandra cluster status --cluster-name
+                                        --resource-group
+  examples:
+  - summary: Gets the CPU, memory, and disk usage statistics for each Cassandra node in a cluster.
+    syntax: az managed-cassandra cluster status --resource-group MyResourceGroup --cluster-name MyCluster
+  requiredParameters:
+  - isRequired: true
+    name: --cluster-name -c
+    summary: Cluster Name.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
 - uid: az_managed-cassandra_cluster_update
   name: az managed-cassandra cluster update
   summary: Update a Managed Cassandra Cluster.
@@ -175,7 +290,7 @@ directCommands:
   syntax: >-
     az managed-cassandra cluster update --cluster-name
                                         --resource-group
-                                        [--authentication-method {Cassandra, Ldap, None}]
+                                        [--authentication-method {Cassandra, None}]
                                         [--cassandra-version]
                                         [--client-certificates]
                                         [--external-gossip-certificates]
@@ -183,7 +298,7 @@ directCommands:
                                         [--hours-between-backups]
                                         [--identity-type {None, SystemAssigned}]
                                         [--no-wait]
-                                        [--repair-enabled]
+                                        [--repair-enabled {false, true}]
                                         [--tags]
   examples:
   - summary: Update External Seed Nodes of a given cluster.
@@ -201,8 +316,8 @@ directCommands:
     description: ''
   optionalParameters:
   - name: --authentication-method
-    parameterValueGroup: "Cassandra, Ldap, None"
-    summary: Authentication mode can be None, Cassandra or Ldap. If None, no authentication will be required to connect to the Cassandra API. If Cassandra, then passwords will be used. Ldap is in preview.
+    parameterValueGroup: "Cassandra, None"
+    summary: Authentication mode can be None or Cassandra. If None, no authentication will be required to connect to the Cassandra API. If Cassandra, then passwords will be used.
     description: ''
   - name: --cassandra-version
     summary: The version of Cassandra chosen.
@@ -228,6 +343,7 @@ directCommands:
     summary: Do not wait for the long-running operation to finish.
     description: ''
   - name: --repair-enabled
+    parameterValueGroup: "false, true"
     summary: Enables automatic repair.
     description: ''
   - name: --tags
@@ -238,9 +354,13 @@ commands:
 - az_managed-cassandra_cluster_backup_list
 - az_managed-cassandra_cluster_backup_show
 - az_managed-cassandra_cluster_create
+- az_managed-cassandra_cluster_deallocate
 - az_managed-cassandra_cluster_delete
+- az_managed-cassandra_cluster_invoke-command
 - az_managed-cassandra_cluster_list
 - az_managed-cassandra_cluster_show
+- az_managed-cassandra_cluster_start
+- az_managed-cassandra_cluster_status
 - az_managed-cassandra_cluster_update
 globalParameters:
 - name: --debug
@@ -260,4 +380,4 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
-  description: See https://docs.microsoft.com/en-us/azure/managed-instance-apache-cassandra/manage-resources-cli for Cassandra API samples.
+  description: Azure Managed Cassandra Cluster.

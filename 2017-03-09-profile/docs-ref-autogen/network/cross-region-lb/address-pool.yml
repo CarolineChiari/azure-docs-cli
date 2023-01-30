@@ -91,6 +91,45 @@ directCommands:
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_cross-region-lb_address-pool_list
+  name: az network cross-region-lb address-pool list
+  summary: Gets all the load balancer backed address pools.
+  description: ''
+  syntax: >-
+    az network cross-region-lb address-pool list --lb-name
+                                                 --resource-group
+  requiredParameters:
+  - isRequired: true
+    name: --lb-name
+    summary: The load balancer name.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_cross-region-lb_address-pool_show
+  name: az network cross-region-lb address-pool show
+  summary: Gets load balancer backend address pool.
+  description: ''
+  syntax: >-
+    az network cross-region-lb address-pool show --lb-name
+                                                 --name
+                                                 --resource-group
+  requiredParameters:
+  - isRequired: true
+    name: --lb-name
+    summary: The load balancer name.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: The name of the backend address pool. If only one exists, omit to use as default.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
 - az_network_cross-region-lb_address-pool_address
 - az_network_cross-region-lb_address-pool_address_add
@@ -98,6 +137,8 @@ commands:
 - az_network_cross-region-lb_address-pool_address_remove
 - az_network_cross-region-lb_address-pool_create
 - az_network_cross-region-lb_address-pool_delete
+- az_network_cross-region-lb_address-pool_list
+- az_network_cross-region-lb_address-pool_show
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.

@@ -156,11 +156,30 @@ directCommands:
 commands:
 - az_network_watcher_connection-monitor_create
 - az_network_watcher_connection-monitor_delete
+- az_network_watcher_connection-monitor_endpoint
+- az_network_watcher_connection-monitor_endpoint_add
+- az_network_watcher_connection-monitor_endpoint_list
+- az_network_watcher_connection-monitor_endpoint_remove
+- az_network_watcher_connection-monitor_endpoint_show
 - az_network_watcher_connection-monitor_list
+- az_network_watcher_connection-monitor_output
+- az_network_watcher_connection-monitor_output_add
+- az_network_watcher_connection-monitor_output_list
+- az_network_watcher_connection-monitor_output_remove
 - az_network_watcher_connection-monitor_query
 - az_network_watcher_connection-monitor_show
 - az_network_watcher_connection-monitor_start
 - az_network_watcher_connection-monitor_stop
+- az_network_watcher_connection-monitor_test-configuration
+- az_network_watcher_connection-monitor_test-configuration_add
+- az_network_watcher_connection-monitor_test-configuration_list
+- az_network_watcher_connection-monitor_test-configuration_remove
+- az_network_watcher_connection-monitor_test-configuration_show
+- az_network_watcher_connection-monitor_test-group
+- az_network_watcher_connection-monitor_test-group_add
+- az_network_watcher_connection-monitor_test-group_list
+- az_network_watcher_connection-monitor_test-group_remove
+- az_network_watcher_connection-monitor_test-group_show
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.
