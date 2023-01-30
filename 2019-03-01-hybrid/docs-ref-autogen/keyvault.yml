@@ -4,6 +4,25 @@ name: az keyvault
 summary: Manage KeyVault keys, secrets, and certificates.
 description: ''
 directCommands:
+- uid: az_keyvault_check-name
+  name: az keyvault check-name
+  summary: Checks that the managed hsm name is valid and is not already in use.
+  description: ''
+  syntax: >-
+    az keyvault check-name --name
+                           [--resource-type {hsm}]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: The name of the HSM within the specified resource group.
+    description: ''
+  optionalParameters:
+  - name: --resource-type
+    defaultValue: "hsm"
+    parameterValueGroup: "hsm"
+    summary: Type of resource.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 - uid: az_keyvault_create
   name: az keyvault create
   summary: Create a Vault or HSM.
@@ -555,8 +574,65 @@ directCommands:
     summary: Wait until updated with provisioningState at 'Succeeded'.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
+- uid: az_keyvault_wait-hsm
+  name: az keyvault wait-hsm
+  summary: Place the CLI in a waiting state until a condition of the HSM is met.
+  description: ''
+  syntax: >-
+    az keyvault wait-hsm --hsm-name
+                         [--created]
+                         [--custom]
+                         [--deleted]
+                         [--exists]
+                         [--interval]
+                         [--resource-group]
+                         [--timeout]
+                         [--updated]
+  examples:
+  - summary: Pause CLI until the HSM is created.
+    syntax: az keyvault wait-hsm --hsm-name MyHSM --created
+  requiredParameters:
+  - isRequired: true
+    name: --hsm-name
+    summary: Name of the HSM.
+    description: ''
+  optionalParameters:
+  - name: --created
+    defaultValue: "False"
+    summary: Wait until created with 'provisioningState' at 'Succeeded'.
+    description: ''
+  - name: --custom
+    summary: Wait until the condition satisfies a custom JMESPath query. E.g. provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running'].
+    description: ''
+  - name: --deleted
+    defaultValue: "False"
+    summary: Wait until deleted.
+    description: ''
+  - name: --exists
+    defaultValue: "False"
+    summary: Wait until the resource exists.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Polling interval in seconds.
+    description: ''
+  - name: --resource-group -g
+    summary: Proceed only if HSM belongs to the specified resource group.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximum wait in seconds.
+    description: ''
+  - name: --updated
+    defaultValue: "False"
+    summary: Wait until updated with provisioningState at 'Succeeded'.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/keyvault/_help.py
 commands:
+- az_keyvault_backup
+- az_keyvault_backup_start
 - az_keyvault_certificate
+- az_keyvault_certificate_backup
 - az_keyvault_certificate_contact
 - az_keyvault_certificate_contact_add
 - az_keyvault_certificate_contact_delete
@@ -585,9 +661,11 @@ commands:
 - az_keyvault_certificate_pending_show
 - az_keyvault_certificate_purge
 - az_keyvault_certificate_recover
+- az_keyvault_certificate_restore
 - az_keyvault_certificate_set-attributes
 - az_keyvault_certificate_show
 - az_keyvault_certificate_show-deleted
+- az_keyvault_check-name
 - az_keyvault_create
 - az_keyvault_delete
 - az_keyvault_delete-policy
@@ -604,13 +682,32 @@ commands:
 - az_keyvault_key_list-deleted
 - az_keyvault_key_list-versions
 - az_keyvault_key_purge
+- az_keyvault_key_random
 - az_keyvault_key_recover
 - az_keyvault_key_restore
+- az_keyvault_key_rotate
+- az_keyvault_key_rotation-policy
+- az_keyvault_key_rotation-policy_show
+- az_keyvault_key_rotation-policy_update
 - az_keyvault_key_set-attributes
 - az_keyvault_key_show
 - az_keyvault_key_show-deleted
 - az_keyvault_list
 - az_keyvault_list-deleted
+- az_keyvault_network-rule
+- az_keyvault_network-rule_add
+- az_keyvault_network-rule_list
+- az_keyvault_network-rule_remove
+- az_keyvault_network-rule_wait
+- az_keyvault_private-endpoint-connection
+- az_keyvault_private-endpoint-connection_approve
+- az_keyvault_private-endpoint-connection_delete
+- az_keyvault_private-endpoint-connection_list
+- az_keyvault_private-endpoint-connection_reject
+- az_keyvault_private-endpoint-connection_show
+- az_keyvault_private-endpoint-connection_wait
+- az_keyvault_private-link-resource
+- az_keyvault_private-link-resource_list
 - az_keyvault_purge
 - az_keyvault_recover
 - az_keyvault_region
@@ -618,6 +715,19 @@ commands:
 - az_keyvault_region_list
 - az_keyvault_region_remove
 - az_keyvault_region_wait
+- az_keyvault_restore
+- az_keyvault_restore_start
+- az_keyvault_role
+- az_keyvault_role_assignment
+- az_keyvault_role_assignment_create
+- az_keyvault_role_assignment_delete
+- az_keyvault_role_assignment_list
+- az_keyvault_role_definition
+- az_keyvault_role_definition_create
+- az_keyvault_role_definition_delete
+- az_keyvault_role_definition_list
+- az_keyvault_role_definition_show
+- az_keyvault_role_definition_update
 - az_keyvault_secret
 - az_keyvault_secret_backup
 - az_keyvault_secret_delete
@@ -632,12 +742,40 @@ commands:
 - az_keyvault_secret_set-attributes
 - az_keyvault_secret_show
 - az_keyvault_secret_show-deleted
+- az_keyvault_security-domain
+- az_keyvault_security-domain_download
+- az_keyvault_security-domain_init-recovery
+- az_keyvault_security-domain_upload
+- az_keyvault_security-domain_wait
 - az_keyvault_set-policy
 - az_keyvault_show
 - az_keyvault_show-deleted
+- az_keyvault_storage
+- az_keyvault_storage_add
+- az_keyvault_storage_backup
+- az_keyvault_storage_list
+- az_keyvault_storage_list-deleted
+- az_keyvault_storage_purge
+- az_keyvault_storage_recover
+- az_keyvault_storage_regenerate-key
+- az_keyvault_storage_remove
+- az_keyvault_storage_restore
+- az_keyvault_storage_sas-definition
+- az_keyvault_storage_sas-definition_create
+- az_keyvault_storage_sas-definition_delete
+- az_keyvault_storage_sas-definition_list
+- az_keyvault_storage_sas-definition_list-deleted
+- az_keyvault_storage_sas-definition_recover
+- az_keyvault_storage_sas-definition_show
+- az_keyvault_storage_sas-definition_show-deleted
+- az_keyvault_storage_sas-definition_update
+- az_keyvault_storage_show
+- az_keyvault_storage_show-deleted
+- az_keyvault_storage_update
 - az_keyvault_update
 - az_keyvault_update-hsm
 - az_keyvault_wait
+- az_keyvault_wait-hsm
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.

@@ -142,11 +142,42 @@ directCommands:
     summary: The start time of the query in the format of %Y-%m-%dT%H:%M:%SZ, e.g. 2000-12-31T12:59:59Z. Defaults to 1 Hour prior to the current time.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
+- uid: az_role_assignment_update
+  name: az role assignment update
+  summary: Update an existing role assignment for a user, group, or service principal.
+  description: ''
+  syntax: az role assignment update --role-assignment
+  examples:
+  - summary: Update a role assignment from a JSON file.
+    syntax: az role assignment update --role-assignment assignment.json
+  - summary: Update a role assignment from a JSON string. (Bash)
+    syntax: >-
+      az role assignment update --role-assignment '{
+          "canDelegate": null,
+          "condition": "@Resource[Microsoft.Storage/storageAccounts/blobServices/containers:Name] stringEquals '"'"'foo'"'"'",
+          "conditionVersion": "2.0",
+          "description": "Role assignment foo to check on bar",
+          "id": "/subscriptions/00000001-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Authorization/roleAssignments/3eabdd43-375b-4dbd-8dc4-04acd15ce56b",
+          "name": "3eabdd43-375b-4dbd-8dc4-04acd15ce56b",
+          "principalId": "00000002-0000-0000-0000-000000000000",
+          "principalType": "User",
+          "resourceGroup": "rg1",
+          "roleDefinitionId": "/subscriptions/00000001-0000-0000-0000-000000000000/providers/Microsoft.Authorization/roleDefinitions/acdd72a7-3385-48ef-bd42-f606fba81ae7",
+          "scope": "/subscriptions/00000001-0000-0000-0000-000000000000/resourceGroups/rg1",
+          "type": "Microsoft.Authorization/roleAssignments"
+      }'
+  requiredParameters:
+  - isRequired: true
+    name: --role-assignment
+    summary: Description of an existing role assignment as JSON, or a path to a file containing a JSON description.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/role/_help.py
 commands:
 - az_role_assignment_create
 - az_role_assignment_delete
 - az_role_assignment_list
 - az_role_assignment_list-changelogs
+- az_role_assignment_update
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.

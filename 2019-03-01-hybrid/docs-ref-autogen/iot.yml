@@ -336,6 +336,8 @@ commands:
 - az_iot_hub_device-twin_replace
 - az_iot_hub_device-twin_show
 - az_iot_hub_device-twin_update
+- az_iot_hub_devicestream
+- az_iot_hub_devicestream_show
 - az_iot_hub_digital-twin
 - az_iot_hub_digital-twin_invoke-command
 - az_iot_hub_digital-twin_show
@@ -368,6 +370,11 @@ commands:
 - az_iot_hub_message-endpoint_delete
 - az_iot_hub_message-endpoint_list
 - az_iot_hub_message-endpoint_show
+- az_iot_hub_message-enrichment
+- az_iot_hub_message-enrichment_create
+- az_iot_hub_message-enrichment_delete
+- az_iot_hub_message-enrichment_list
+- az_iot_hub_message-enrichment_update
 - az_iot_hub_message-route
 - az_iot_hub_message-route_create
 - az_iot_hub_message-route_delete

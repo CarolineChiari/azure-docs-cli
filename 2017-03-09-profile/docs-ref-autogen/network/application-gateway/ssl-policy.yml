@@ -4,6 +4,15 @@ name: az network application-gateway ssl-policy
 summary: Manage the SSL policy of an application gateway.
 description: ''
 directCommands:
+- uid: az_network_application-gateway_ssl-policy_list-options
+  name: az network application-gateway ssl-policy list-options
+  summary: Lists available SSL options for configuring SSL policy.
+  description: ''
+  syntax: az network application-gateway ssl-policy list-options
+  examples:
+  - summary: List available SSL options for configuring SSL policy.
+    syntax: az network application-gateway ssl-policy list-options
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_application-gateway_ssl-policy_set
   name: az network application-gateway ssl-policy set
   summary: Update or clear SSL policy settings.
@@ -79,6 +88,10 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
+- az_network_application-gateway_ssl-policy_list-options
+- az_network_application-gateway_ssl-policy_predefined
+- az_network_application-gateway_ssl-policy_predefined_list
+- az_network_application-gateway_ssl-policy_predefined_show
 - az_network_application-gateway_ssl-policy_set
 - az_network_application-gateway_ssl-policy_show
 globalParameters:

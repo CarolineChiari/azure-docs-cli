@@ -1,0 +1,83 @@
+### YamlMime:AzureCLIGroup
+uid: az_aks_command
+name: az aks command
+summary: See detail usage in 'az aks command invoke', 'az aks command result'.
+description: ''
+directCommands:
+- uid: az_aks_command_invoke
+  name: az aks command invoke
+  summary: Run a shell command (with kubectl, helm) on your aks cluster, support attaching files as well.
+  description: ''
+  syntax: >-
+    az aks command invoke --name
+                          --resource-group
+                          [--command]
+                          [--file]
+                          [--no-wait]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name of the managed cluster.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --command -c
+    summary: Command or shell script you want to run.
+    description: ''
+  - name: --file -f
+    summary: Files to be used by the command, use '.' to attach the current folder.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+- uid: az_aks_command_result
+  name: az aks command result
+  summary: Fetch result from previously triggered 'aks command invoke'.
+  description: ''
+  syntax: >-
+    az aks command result --name
+                          --resource-group
+                          [--command-id]
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name of the managed cluster.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --command-id -i
+    summary: CommandId returned from 'aks command invoke'.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+commands:
+- az_aks_command_invoke
+- az_aks_command_result
+globalParameters:
+- name: --debug
+  summary: Increase logging verbosity to show all debug logs.
+- name: --help -h
+  summary: Show this help message and exit.
+- name: --only-show-errors
+  summary: Only show errors, suppressing warnings.
+- name: --output -o
+  defaultValue: "json"
+  parameterValueGroup: "json, jsonc, table, tsv"
+  summary: Output format.
+- name: --query
+  summary: JMESPath query string. See <a href="http://jmespath.org/">http://jmespath.org/</a> for more information and examples.
+- name: --subscription
+  summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+- name: --verbose
+  summary: Increase logging verbosity. Use --debug for full debug logs.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/18/2023
+  description: See detail usage in 'az aks command invoke', 'az aks command result'.

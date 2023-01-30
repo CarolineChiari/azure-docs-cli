@@ -352,6 +352,52 @@ directCommands:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
+- uid: az_sig_image-definition_list-shared
+  name: az sig image-definition list-shared
+  summary: List VM Image definitions in a gallery shared directly to your subscription or tenant.
+  description: List VM Image definitions in a gallery shared directly to your subscription or tenant.
+  syntax: >-
+    az sig image-definition list-shared [--gallery-unique-name]
+                                        [--ids]
+                                        [--location]
+                                        [--marker]
+                                        [--shared-to {tenant}]
+                                        [--show-next-marker]
+                                        [--subscription]
+  examples:
+  - summary: List an image definition in a gallery shared directly to your subscription in the given location.
+    syntax: >-
+      az sig image-definition list-shared --gallery-unique-name galleryUniqueName \
+
+      --location myLocation
+  - summary: List an image definition in a gallery shared directly to your tenant in the given location.
+    syntax: >-
+      az sig image-definition list-shared --gallery-unique-name galleryUniqueName \
+
+      --location myLocation --shared-to tenant
+  optionalParameters:
+  - name: --gallery-unique-name
+    summary: The unique name of the Shared Gallery.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  - name: --marker
+    summary: A string value that identifies the portion of the list of containers to be returned with the next listing operation. The operation returns the NextMarker value within the response body if the listing operation did not return all containers remaining to be listed with the current page. If specified, this generator will begin returning results from the point where the previous generator stopped.
+    description: ''
+  - name: --shared-to
+    parameterValueGroup: "tenant"
+    summary: The query parameter to decide what shared galleries to fetch when doing listing operations. If not specified, list by subscription id.
+    description: ''
+  - name: --show-next-marker
+    summary: Show nextMarker in result when specified.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
 - uid: az_sig_image-definition_show
   name: az sig image-definition show
   summary: Retrieves information about a gallery Image Definition.
@@ -406,6 +452,38 @@ directCommands:
     description: ''
   - name: --public-gallery-name
     summary: The public name of community gallery.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+- uid: az_sig_image-definition_show-shared
+  name: az sig image-definition show-shared
+  summary: Get a shared gallery image.
+  description: Get a shared gallery image that has been shared directly to your subscription or tenant.
+  syntax: >-
+    az sig image-definition show-shared [--gallery-image-definition]
+                                        [--gallery-unique-name]
+                                        [--ids]
+                                        [--location]
+                                        [--subscription]
+  examples:
+  - summary: Get an image definition in a gallery shared directly to your subscription or tenant in the given location.
+    syntax: >-
+      az sig image-definition show-shared --gallery-unique-name galleryUniqueName \
+
+      --gallery-image-definition myGalleryImageName --location myLocation
+  optionalParameters:
+  - name: --gallery-image-definition -i
+    summary: The name of the Shared Gallery Image Definition from which the Image Versions are to be listed.
+    description: ''
+  - name: --gallery-unique-name
+    summary: The unique name of the Shared Gallery.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
     description: ''
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
@@ -476,8 +554,10 @@ commands:
 - az_sig_image-definition_delete
 - az_sig_image-definition_list
 - az_sig_image-definition_list-community
+- az_sig_image-definition_list-shared
 - az_sig_image-definition_show
 - az_sig_image-definition_show-community
+- az_sig_image-definition_show-shared
 - az_sig_image-definition_update
 globalParameters:
 - name: --debug

@@ -1,10 +1,6 @@
 ### YamlMime:AzureCLIGroup
 uid: az_eventgrid_topic
 name: az eventgrid topic
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **eventgrid** extension for the Azure CLI  (version 2.0.49 or higher).  The extension will automatically install the first time you run an **az eventgrid topic** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage Azure Event Grid topics.
 description: ''
 directCommands:
@@ -203,6 +199,12 @@ directCommands:
 commands:
 - az_eventgrid_topic_create
 - az_eventgrid_topic_delete
+- az_eventgrid_topic_event-subscription
+- az_eventgrid_topic_event-subscription_create
+- az_eventgrid_topic_event-subscription_delete
+- az_eventgrid_topic_event-subscription_list
+- az_eventgrid_topic_event-subscription_show
+- az_eventgrid_topic_event-subscription_update
 - az_eventgrid_topic_key
 - az_eventgrid_topic_key_list
 - az_eventgrid_topic_key_regenerate

@@ -4,6 +4,31 @@ name: az network vnet
 summary: Check if a private IP address is available for use within a virtual network.
 description: To learn more about Virtual Networks visit https://docs.microsoft.com/azure/virtual-network/virtual-network-manage-network.
 directCommands:
+- uid: az_network_vnet_check-ip-address
+  name: az network vnet check-ip-address
+  summary: Check if a private IP address is available for use within a virtual network.
+  description: ''
+  syntax: >-
+    az network vnet check-ip-address --ip-address
+                                     --name
+                                     --resource-group
+  examples:
+  - summary: Check whether 10.0.0.4 is available within MyVnet.
+    syntax: az network vnet check-ip-address -g MyResourceGroup -n MyVnet --ip-address 10.0.0.4
+  requiredParameters:
+  - isRequired: true
+    name: --ip-address
+    summary: The private IP address to be verified.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: The virtual network (VNet) name.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet_create
   name: az network vnet create
   summary: Create a virtual network.
@@ -110,6 +135,46 @@ directCommands:
   optionalParameters:
   - name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_vnet_list-available-ips
+  name: az network vnet list-available-ips
+  summary: List some available ips in the vnet.
+  description: ''
+  syntax: >-
+    az network vnet list-available-ips [--ids]
+                                       [--name]
+                                       [--resource-group]
+                                       [--subscription]
+  examples:
+  - summary: List some available ips in the vnet.
+    syntax: az network vnet list-available-ips -g MyResourceGroup -n MyVNet
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: The virtual network (VNet) name.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_vnet_list-endpoint-services
+  name: az network vnet list-endpoint-services
+  summary: List which services support VNet service tunneling in a given region.
+  description: To learn more about service endpoints visit https://docs.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-configure#azure-cli.
+  syntax: az network vnet list-endpoint-services --location
+  examples:
+  - summary: List the endpoint services available for use in the West US region.
+    syntax: az network vnet list-endpoint-services -l westus -o table
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_vnet_show
@@ -271,14 +336,27 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
+- az_network_vnet_check-ip-address
 - az_network_vnet_create
 - az_network_vnet_delete
 - az_network_vnet_list
+- az_network_vnet_list-available-ips
+- az_network_vnet_list-endpoint-services
+- az_network_vnet_peering
+- az_network_vnet_peering_create
+- az_network_vnet_peering_delete
+- az_network_vnet_peering_list
+- az_network_vnet_peering_show
+- az_network_vnet_peering_sync
+- az_network_vnet_peering_update
+- az_network_vnet_peering_wait
 - az_network_vnet_show
 - az_network_vnet_subnet
 - az_network_vnet_subnet_create
 - az_network_vnet_subnet_delete
 - az_network_vnet_subnet_list
+- az_network_vnet_subnet_list-available-delegations
+- az_network_vnet_subnet_list-available-ips
 - az_network_vnet_subnet_show
 - az_network_vnet_subnet_update
 - az_network_vnet_subnet_wait

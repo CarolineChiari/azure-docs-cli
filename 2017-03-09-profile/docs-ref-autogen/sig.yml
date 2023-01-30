@@ -1,10 +1,6 @@
 ### YamlMime:AzureCLIGroup
 uid: az_sig
 name: az sig
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **image-gallery** extension for the Azure CLI  (version 2.3.0 or higher).  The extension will automatically install the first time you run an **az sig** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage shared image gallery.
 description: ''
 directCommands:
@@ -66,6 +62,109 @@ directCommands:
   - name: --tags
     summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
     description: ''
+- uid: az_sig_delete
+  name: az sig delete
+  summary: Delete a Shared Image Gallery.
+  description: ''
+  syntax: >-
+    az sig delete --gallery-name
+                  --resource-group
+  requiredParameters:
+  - isRequired: true
+    name: --gallery-name -r
+    summary: Gallery name.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+- uid: az_sig_list
+  name: az sig list
+  summary: List share image galleries.
+  description: ''
+  syntax: az sig list [--resource-group]
+  examples:
+  - summary: List shared galleries by subscription id.
+    syntax: az sig list-shared --location myLocation
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+- uid: az_sig_list-community
+  name: az sig list-community
+  summary: List all community galleries shared directly to your subscription or tenant.
+  description: List all community galleries shared directly to your subscription or tenant.
+  syntax: >-
+    az sig list-community [--location]
+                          [--marker]
+                          [--show-next-marker]
+  examples:
+  - summary: List community galleries shared directly to your subscription in a given location
+    syntax: az sig list-community --location myLocation
+  - summary: List paging community galleries shared directly to your tenant in a given location according to next marker
+    syntax: az sig list-community --location myLocation --marker nextMarker
+  optionalParameters:
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  - name: --marker
+    summary: A string value that identifies the portion of the list of containers to be returned with the next listing operation. The operation returns the NextMarker value within the response body if the listing operation did not return all containers remaining to be listed with the current page. If specified, this generator will begin returning results from the point where the previous generator stopped.
+    description: ''
+  - name: --show-next-marker
+    summary: Show nextMarker in result when specified.
+    description: ''
+- uid: az_sig_list-shared
+  name: az sig list-shared
+  summary: List all shared galleries shared directly to your subscription or tenant.
+  description: List all shared galleries shared directly to your subscription or tenant.
+  syntax: >-
+    az sig list-shared --location
+                       [--shared-to {tenant}]
+  examples:
+  - summary: List shared galleries shared directly to your subscription in a given location
+    syntax: az sig list-shared --location myLocation
+  - summary: List shared galleries shared directly to your tenant in a given location
+    syntax: az sig list-shared --location myLocation --shared-to tenant
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  optionalParameters:
+  - name: --shared-to
+    parameterValueGroup: "tenant"
+    summary: The query parameter to decide what shared galleries to fetch when doing listing operations. If not specified, list by subscription id.
+    description: ''
+- uid: az_sig_show
+  name: az sig show
+  summary: Retrieve information about a Shared Image Gallery.
+  description: ''
+  syntax: >-
+    az sig show [--gallery-name]
+                [--ids]
+                [--resource-group]
+                [--select]
+                [--sharing-groups]
+                [--subscription]
+  optionalParameters:
+  - name: --gallery-name -r
+    summary: Gallery name.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --select
+    summary: The select expression to apply on the operation.
+    description: ''
+  - name: --sharing-groups
+    summary: The expand query option to query shared gallery groups.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
 - uid: az_sig_show-community
   name: az sig show-community
   summary: Get a gallery that has been community (preview).
@@ -91,17 +190,162 @@ directCommands:
   - name: --subscription
     summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
+- uid: az_sig_show-shared
+  name: az sig show-shared
+  summary: Get a gallery that has been shared directly to your subscription or tenant.
+  description: Get a gallery that has been shared directly to your subscription or tenant.
+  syntax: >-
+    az sig show-shared [--gallery-unique-name]
+                       [--ids]
+                       [--location]
+                       [--subscription]
+  examples:
+  - summary: Get a gallery that has been shared directly to your subscription or tenant in the given location.
+    syntax: az sig show-shared --gallery-unique-name galleryUniqueName --location myLocation
+  optionalParameters:
+  - name: --gallery-unique-name
+    summary: The unique name of the Shared Gallery.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+- uid: az_sig_update
+  name: az sig update
+  summary: Update a share image gallery.
+  description: ''
+  syntax: >-
+    az sig update --gallery-name
+                  --resource-group
+                  [--add]
+                  [--eula]
+                  [--force-string]
+                  [--permissions {Community, Groups, Private}]
+                  [--public-name-prefix]
+                  [--publisher-email]
+                  [--publisher-uri]
+                  [--remove]
+                  [--select]
+                  [--set]
+                  [--soft-delete {false, true}]
+  examples:
+  - summary: Enable gallery to be shared to subscription or tenant
+    syntax: >-
+      az sig update --resource-group myResourceGroup --gallery-name myGallery \
+
+      --permissions groups
+  - summary: Update gallery from private to community
+    syntax: >-
+      az sig update -g myResourceGroup --gallery-name myGallery --permissions Community \
+
+      --publisher-uri myPublisherUri --publisher-email myPublisherEmail \
+
+      --eula myEula --public-name-prefix myPublicNamePrefix
+  requiredParameters:
+  - isRequired: true
+    name: --gallery-name -r
+    summary: Gallery name.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --add
+    defaultValue: "[]"
+    summary: 'Add an object to a list of objects by specifying a path and key value pairs.  Example: --add property.listProperty <key=value, string or JSON string>.'
+    description: ''
+  - name: --eula
+    summary: Community gallery publisher eula.
+    description: ''
+  - name: --force-string
+    defaultValue: "False"
+    summary: When using 'set' or 'add', preserve string literals instead of attempting to convert to JSON.
+    description: ''
+  - name: --permissions
+    parameterValueGroup: "Community, Groups, Private"
+    summary: This property allows you to specify the permission of sharing gallery.
+    description: ''
+  - name: --public-name-prefix
+    summary: Community gallery public name prefix.
+    description: ''
+  - name: --publisher-email
+    summary: Community gallery publisher contact email.
+    description: ''
+  - name: --publisher-uri
+    summary: Community gallery publisher uri.
+    description: ''
+  - name: --remove
+    defaultValue: "[]"
+    summary: 'Remove a property or an element from a list.  Example: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --select
+    summary: The select expression to apply on the operation. "Permissions" Default value is None.
+    description: ''
+  - name: --set
+    defaultValue: "[]"
+    summary: 'Update an object by specifying a property path and value to set.  Example: --set property1.property2=<value>.'
+    description: ''
+  - name: --soft-delete
+    parameterValueGroup: "false, true"
+    summary: Enable soft-deletion for resources in this gallery, allowing them to be recovered within retention time.
+    description: ''
 commands:
 - az_sig_create
+- az_sig_delete
+- az_sig_gallery-application
+- az_sig_gallery-application_create
+- az_sig_gallery-application_delete
+- az_sig_gallery-application_list
+- az_sig_gallery-application_show
+- az_sig_gallery-application_update
+- az_sig_gallery-application_version
+- az_sig_gallery-application_version_create
+- az_sig_gallery-application_version_delete
+- az_sig_gallery-application_version_list
+- az_sig_gallery-application_version_show
+- az_sig_gallery-application_version_update
+- az_sig_gallery-application_version_wait
+- az_sig_gallery-application_wait
 - az_sig_image-definition
+- az_sig_image-definition_create
+- az_sig_image-definition_delete
+- az_sig_image-definition_list
 - az_sig_image-definition_list-community
+- az_sig_image-definition_list-shared
+- az_sig_image-definition_show
 - az_sig_image-definition_show-community
+- az_sig_image-definition_show-shared
+- az_sig_image-definition_update
 - az_sig_image-version
+- az_sig_image-version_create
+- az_sig_image-version_delete
+- az_sig_image-version_list
 - az_sig_image-version_list-community
+- az_sig_image-version_list-shared
+- az_sig_image-version_show
 - az_sig_image-version_show-community
+- az_sig_image-version_show-shared
+- az_sig_image-version_update
+- az_sig_image-version_wait
+- az_sig_list
+- az_sig_list-community
+- az_sig_list-shared
 - az_sig_share
+- az_sig_share_add
 - az_sig_share_enable-community
+- az_sig_share_remove
+- az_sig_share_reset
+- az_sig_share_wait
+- az_sig_show
 - az_sig_show-community
+- az_sig_show-shared
+- az_sig_update
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.

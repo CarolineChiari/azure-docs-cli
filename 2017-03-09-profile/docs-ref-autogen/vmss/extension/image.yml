@@ -42,8 +42,104 @@ directCommands:
     summary: Extension version.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vmss_extension_image_list-names
+  name: az vmss extension image list-names
+  summary: List a list of virtual machine extension image types.
+  description: ''
+  syntax: >-
+    az vmss extension image list-names [--ids]
+                                       [--location]
+                                       [--publisher]
+                                       [--subscription]
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  - name: --publisher --publisher-name -p
+    summary: Image publisher name.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vmss_extension_image_list-versions
+  name: az vmss extension image list-versions
+  summary: List a list of virtual machine extension image versions.
+  description: ''
+  syntax: >-
+    az vmss extension image list-versions [--filter]
+                                          [--ids]
+                                          [--location]
+                                          [--name]
+                                          [--orderby]
+                                          [--publisher]
+                                          [--subscription]
+                                          [--top]
+  optionalParameters:
+  - name: --filter
+    summary: The filter to apply on the operation. Default value is None.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  - name: --name --type -n
+    summary: Name of the extension.
+    description: ''
+  - name: --orderby
+    summary: The $orderby odata query option.
+    description: ''
+  - name: --publisher --publisher-name -p
+    summary: Image publisher name.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --top
+    summary: The $top odata query option.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
+- uid: az_vmss_extension_image_show
+  name: az vmss extension image show
+  summary: Get a virtual machine extension image.
+  description: ''
+  syntax: >-
+    az vmss extension image show [--ids]
+                                 [--location]
+                                 [--name]
+                                 [--publisher]
+                                 [--subscription]
+                                 [--version]
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  - name: --name --type -n
+    summary: Name of the extension.
+    description: ''
+  - name: --publisher --publisher-name -p
+    summary: Image publisher name.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --version
+    summary: Extension version.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 commands:
 - az_vmss_extension_image_list
+- az_vmss_extension_image_list-names
+- az_vmss_extension_image_list-versions
+- az_vmss_extension_image_show
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.

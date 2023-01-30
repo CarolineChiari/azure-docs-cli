@@ -4,6 +4,121 @@ name: az network private-endpoint
 summary: Manage private endpoints.
 description: ''
 directCommands:
+- uid: az_network_private-endpoint_create
+  name: az network private-endpoint create
+  summary: Create a private endpoint.
+  description: ''
+  syntax: >-
+    az network private-endpoint create --connection-name
+                                       --name
+                                       --private-connection-resource-id
+                                       --resource-group
+                                       --subnet
+                                       [--asg]
+                                       [--edge-zone]
+                                       [--group-id]
+                                       [--group-ids]
+                                       [--ip-config]
+                                       [--location]
+                                       [--manual-request {false, true}]
+                                       [--nic-name]
+                                       [--request-message]
+                                       [--tags]
+                                       [--vnet-name]
+  examples:
+  - summary: Create a private endpoint.
+    syntax: az network private-endpoint create -g MyResourceGroup -n MyPE --vnet-name MyVnetName --subnet MySubnet --private-connection-resource-id "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/MyResourceGroup/providers/Microsoft.Network/privateLinkServices/MyPLS" --connection-name tttt -l centralus
+  - summary: Create a private endpoint with ASGs.
+    syntax: az network private-endpoint create -n MyPE -g MyResourceGroup --vnet-name MyVnetName --subnet MySubnet --connection-name MyConnectionName --group-id MyGroupId --private-connection-resource-id MyResourceId --asg id=MyAsgId --asg id=MyAsgId
+  requiredParameters:
+  - isRequired: true
+    name: --connection-name
+    summary: Name of the private link service connection.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name of the private endpoint.
+    description: ''
+  - isRequired: true
+    name: --private-connection-resource-id
+    summary: The resource id of the private endpoint to connect to.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - isRequired: true
+    name: --subnet
+    summary: Name or ID of an existing subnet. If name specified, also specify --vnet-name. If you want to use an existing subnet in other resource group or subscription, please provide the ID instead of the name of the subnet and do not specify the --vnet-name.
+    description: ''
+  optionalParameters:
+  - name: --asg
+    summary: The private endpoint application security groups.
+    description: >-
+      Usage: --asg id=MyApplicationSecurityGroupId
+
+      Multiple application security groups can be specified by using more than one `--asg` argument.
+  - name: --edge-zone
+    summary: The name of edge zone.
+    description: ''
+  - name: --group-id
+    summary: The ID of the group obtained from the remote resource that this private endpoint should connect to. You can use "az network private-link-resource list" to obtain the supported group ids. You must provide this except for PrivateLinkService.
+    description: ''
+  - name: --group-ids
+    summary: The ID of the group obtained from the remote resource that this private endpoint should connect to. You can use "az network private-link-resource list" to obtain the supported group ids. You must provide this except for PrivateLinkService.
+    description: ''
+  - name: --ip-config
+    summary: The private endpoint ip configurations.
+    description: >-
+      Usage: --ip-config name=MyIPConfig group-id=MyGroup member-name=MyMember private-ip-address=MyPrivateIPAddress
+
+      Multiple ip configurations can be specified by using more than one `--ip-config` argument.
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  - name: --manual-request
+    parameterValueGroup: "false, true"
+    summary: Use manual request to establish the connection. Configure it as 'true' when you don't have access to the subscription of private link service.
+    description: ''
+  - name: --nic-name
+    summary: The custom name of the network interface attached to the private endpoint.
+    description: ''
+  - name: --request-message
+    summary: A message passed to the owner of the remote resource with this connection request. Restricted to 140 chars.
+    description: ''
+  - name: --tags
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
+    description: ''
+  - name: --vnet-name
+    summary: The virtual network (VNet) associated with the subnet (Omit if supplying a subnet id).
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_private-endpoint_delete
+  name: az network private-endpoint delete
+  summary: Delete a private endpoint.
+  description: ''
+  syntax: >-
+    az network private-endpoint delete [--ids]
+                                       [--name]
+                                       [--resource-group]
+                                       [--subscription]
+  examples:
+  - summary: Delete a private endpoint. (autogenerated)
+    syntax: az network private-endpoint delete --name MyPrivateEndpoint --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: Name of the private endpoint.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_private-endpoint_list
   name: az network private-endpoint list
   summary: List private endpoints.
@@ -14,8 +129,121 @@ directCommands:
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_private-endpoint_list-types
+  name: az network private-endpoint list-types
+  summary: Returns all of the resource types that can be linked to a Private Endpoint in this subscription in this region.
+  description: ''
+  syntax: az network private-endpoint list-types --location
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_private-endpoint_show
+  name: az network private-endpoint show
+  summary: Get the details of a private endpoint.
+  description: ''
+  syntax: >-
+    az network private-endpoint show [--ids]
+                                     [--name]
+                                     [--resource-group]
+                                     [--subscription]
+  examples:
+  - summary: Get the details of a private endpoint (autogenerated)
+    syntax: az network private-endpoint show --name MyPrivateEndpoint --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: Name of the private endpoint.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_private-endpoint_update
+  name: az network private-endpoint update
+  summary: Update a private endpoint.
+  description: ''
+  syntax: >-
+    az network private-endpoint update [--add]
+                                       [--force-string]
+                                       [--ids]
+                                       [--name]
+                                       [--remove]
+                                       [--request-message]
+                                       [--resource-group]
+                                       [--set]
+                                       [--subscription]
+                                       [--tags]
+  examples:
+  - summary: Update a private endpoint.
+    syntax: az network private-endpoint update -g MyResourceGroup -n MyPE --request-message "test" --tags mytag=hello
+  - summary: Update a private endpoint. (autogenerated)
+    syntax: az network private-endpoint update --name MyPE --resource-group MyResourceGroup --set useRemoteGateways=true
+  optionalParameters:
+  - name: --add
+    defaultValue: "[]"
+    summary: 'Add an object to a list of objects by specifying a path and key value pairs.  Example: --add property.listProperty <key=value, string or JSON string>.'
+    description: ''
+  - name: --force-string
+    defaultValue: "False"
+    summary: When using 'set' or 'add', preserve string literals instead of attempting to convert to JSON.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: Name of the private endpoint.
+    description: ''
+  - name: --remove
+    defaultValue: "[]"
+    summary: 'Remove a property or an element from a list.  Example: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --request-message
+    summary: A message passed to the owner of the remote resource with this connection request. Restricted to 140 chars.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --set
+    defaultValue: "[]"
+    summary: 'Update an object by specifying a property path and value to set.  Example: --set property1.property2=<value>.'
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --tags
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
+- az_network_private-endpoint_asg
+- az_network_private-endpoint_asg_add
+- az_network_private-endpoint_asg_list
+- az_network_private-endpoint_asg_remove
+- az_network_private-endpoint_create
+- az_network_private-endpoint_delete
+- az_network_private-endpoint_dns-zone-group
+- az_network_private-endpoint_dns-zone-group_add
+- az_network_private-endpoint_dns-zone-group_create
+- az_network_private-endpoint_dns-zone-group_delete
+- az_network_private-endpoint_dns-zone-group_list
+- az_network_private-endpoint_dns-zone-group_remove
+- az_network_private-endpoint_dns-zone-group_show
+- az_network_private-endpoint_ip-config
+- az_network_private-endpoint_ip-config_add
+- az_network_private-endpoint_ip-config_list
+- az_network_private-endpoint_ip-config_remove
 - az_network_private-endpoint_list
+- az_network_private-endpoint_list-types
+- az_network_private-endpoint_show
+- az_network_private-endpoint_update
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.

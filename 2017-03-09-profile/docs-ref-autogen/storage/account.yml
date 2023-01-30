@@ -230,6 +230,56 @@ directCommands:
     summary: Do not prompt for confirmation.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_failover
+  name: az storage account failover
+  summary: Failover request can be triggered for a storage account in case of availability issues.
+  description: >-
+    The failover occurs from the storage account's primary cluster to secondary cluster for (RA-)GRS/GZRS accounts. The secondary
+
+    cluster will become primary after failover. For more information, please refer to
+
+    https://docs.microsoft.com/azure/storage/common/storage-disaster-recovery-guidance.
+  syntax: >-
+    az storage account failover [--failover-type]
+                                [--ids]
+                                [--name]
+                                [--no-wait]
+                                [--resource-group]
+                                [--subscription]
+                                [--yes]
+  examples:
+  - summary: Failover a storage account.
+    syntax: az storage account failover -n mystorageaccount -g MyResourceGroup
+  - summary: Failover a storage account without waiting for complete.
+    syntax: >-
+      az storage account failover -n mystorageaccount -g MyResourceGroup --no-wait
+
+      az storage account show -n mystorageaccount --expand geoReplicationStats
+  optionalParameters:
+  - name: --failover-type --type
+    summary: The parameter is set to 'Planned' to indicate whether a Planned failover is requested.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: The storage account name.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --yes -y
+    defaultValue: "False"
+    summary: Do not prompt for confirmation.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 - uid: az_storage_account_generate-sas
   name: az storage account generate-sas
   summary: Generate a shared access signature for the storage account.
@@ -316,6 +366,34 @@ directCommands:
   optionalParameters:
   - name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
+- uid: az_storage_account_revoke-delegation-keys
+  name: az storage account revoke-delegation-keys
+  summary: Revoke all user delegation keys for a storage account.
+  description: ''
+  syntax: >-
+    az storage account revoke-delegation-keys [--ids]
+                                              [--name]
+                                              [--resource-group]
+                                              [--subscription]
+  examples:
+  - summary: Revoke all user delegation keys for a storage account by resource ID.
+    syntax: az storage account revoke-delegation-keys --ids /subscriptions/{SubID}/resourceGroups/{ResourceGroup}/providers/Microsoft.Storage/storageAccounts/{StorageAccount}
+  - summary: Revoke all user delegation keys for a storage account 'mystorageaccount' in resource group 'MyResourceGroup' in the West US region with locally redundant storage.
+    syntax: az storage account revoke-delegation-keys -n mystorageaccount -g MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: The storage account name.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 - uid: az_storage_account_show
@@ -421,13 +499,12 @@ directCommands:
   description: ''
   syntax: >-
     az storage account update [--access-tier {Cool, Hot, Premium}]
-                              [--account-type {Computer, User}]
+                              [--account-type]
                               [--add]
                               [--allow-append {false, true}]
                               [--allow-blob-public-access {false, true}]
                               [--allow-cross-tenant-replication {false, true}]
                               [--allow-shared-key-access {false, true}]
-                              [--allowed-copy-scope {AAD, PrivateLink}]
                               [--assign-identity]
                               [--azure-storage-sid]
                               [--bypass {AzureServices, Logging, Metrics, None}]
@@ -438,6 +515,7 @@ directCommands:
                               [--domain-name]
                               [--domain-sid]
                               [--enable-files-aadds {false, true}]
+                              [--enable-files-aadkerb {false, true}]
                               [--enable-files-adds {false, true}]
                               [--enable-large-file-share]
                               [--enable-local-user {false, true}]
@@ -474,13 +552,15 @@ directCommands:
                               [--tags]
                               [--use-subdomain {false, true}]
                               [--user-identity-id]
+  examples:
+  - summary: Update the properties of a storage account. (autogenerated)
+    syntax: az storage account update --default-action Allow --name MyStorageAccount --resource-group MyResourceGroup
   optionalParameters:
   - name: --access-tier
     parameterValueGroup: "Cool, Hot, Premium"
     summary: The access tier used for billing StandardBlob accounts. Cannot be set for StandardLRS, StandardGRS, StandardRAGRS, or PremiumLRS account types. It is required for StandardBlob accounts during creation.
     description: ''
   - name: --account-type
-    parameterValueGroup: "Computer, User"
     summary: Specify the Active Directory account type for Azure Storage.
     description: ''
   - name: --add
@@ -502,10 +582,6 @@ directCommands:
   - name: --allow-shared-key-access -k
     parameterValueGroup: "false, true"
     summary: Indicate whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). The default value is null, which is equivalent to true.
-    description: ''
-  - name: --allowed-copy-scope -s
-    parameterValueGroup: "AAD, PrivateLink"
-    summary: Restrict copy to and from Storage Accounts within an AAD tenant or with Private Links to the same VNet.
     description: ''
   - name: --assign-identity
     defaultValue: "False"
@@ -541,6 +617,10 @@ directCommands:
   - name: --enable-files-aadds
     parameterValueGroup: "false, true"
     summary: Enable Azure Active Directory Domain Services authentication for Azure Files.
+    description: ''
+  - name: --enable-files-aadkerb
+    parameterValueGroup: "false, true"
+    summary: Enable Azure Files Active Directory Domain Service Kerberos Authentication for the storage account.
     description: ''
   - name: --enable-files-adds
     parameterValueGroup: "false, true"
@@ -668,11 +748,32 @@ directCommands:
   - name: --user-identity-id
     summary: The key is the ARM resource identifier of the identity. Only 1 User Assigned identity is permitted here.
     description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/storage/_help.py
 commands:
+- az_storage_account_blob-inventory-policy
+- az_storage_account_blob-inventory-policy_create
+- az_storage_account_blob-inventory-policy_delete
+- az_storage_account_blob-inventory-policy_show
+- az_storage_account_blob-inventory-policy_update
+- az_storage_account_blob-service-properties
+- az_storage_account_blob-service-properties_show
+- az_storage_account_blob-service-properties_update
 - az_storage_account_check-name
 - az_storage_account_create
 - az_storage_account_delete
+- az_storage_account_encryption-scope
+- az_storage_account_encryption-scope_create
+- az_storage_account_encryption-scope_list
+- az_storage_account_encryption-scope_show
+- az_storage_account_encryption-scope_update
+- az_storage_account_failover
+- az_storage_account_file-service-properties
+- az_storage_account_file-service-properties_show
+- az_storage_account_file-service-properties_update
 - az_storage_account_generate-sas
+- az_storage_account_hns-migration
+- az_storage_account_hns-migration_start
+- az_storage_account_hns-migration_stop
 - az_storage_account_keys
 - az_storage_account_keys_list
 - az_storage_account_keys_renew
@@ -685,10 +786,35 @@ commands:
 - az_storage_account_local-user_regenerate-password
 - az_storage_account_local-user_show
 - az_storage_account_local-user_update
+- az_storage_account_management-policy
+- az_storage_account_management-policy_create
+- az_storage_account_management-policy_delete
+- az_storage_account_management-policy_show
+- az_storage_account_management-policy_update
 - az_storage_account_network-rule
 - az_storage_account_network-rule_add
 - az_storage_account_network-rule_list
 - az_storage_account_network-rule_remove
+- az_storage_account_or-policy
+- az_storage_account_or-policy_create
+- az_storage_account_or-policy_delete
+- az_storage_account_or-policy_list
+- az_storage_account_or-policy_rule
+- az_storage_account_or-policy_rule_add
+- az_storage_account_or-policy_rule_list
+- az_storage_account_or-policy_rule_remove
+- az_storage_account_or-policy_rule_show
+- az_storage_account_or-policy_rule_update
+- az_storage_account_or-policy_show
+- az_storage_account_or-policy_update
+- az_storage_account_private-endpoint-connection
+- az_storage_account_private-endpoint-connection_approve
+- az_storage_account_private-endpoint-connection_delete
+- az_storage_account_private-endpoint-connection_reject
+- az_storage_account_private-endpoint-connection_show
+- az_storage_account_private-link-resource
+- az_storage_account_private-link-resource_list
+- az_storage_account_revoke-delegation-keys
 - az_storage_account_show
 - az_storage_account_show-connection-string
 - az_storage_account_show-usage
@@ -711,4 +837,6 @@ globalParameters:
 - name: --verbose
   summary: Increase logging verbosity. Use --debug for full debug logs.
 metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 11/28/2022
   description: Manage storage accounts.

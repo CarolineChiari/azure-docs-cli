@@ -1232,6 +1232,9 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/vm/_help.py
 commands:
+- az_vmss_application
+- az_vmss_application_list
+- az_vmss_application_set
 - az_vmss_create
 - az_vmss_deallocate
 - az_vmss_delete
@@ -1250,6 +1253,9 @@ commands:
 - az_vmss_extension_delete
 - az_vmss_extension_image
 - az_vmss_extension_image_list
+- az_vmss_extension_image_list-names
+- az_vmss_extension_image_list-versions
+- az_vmss_extension_image_show
 - az_vmss_extension_list
 - az_vmss_extension_set
 - az_vmss_extension_show

@@ -308,6 +308,81 @@ directCommands:
     summary: Wait until updated with provisioningState at 'Succeeded'.
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
+- uid: az_deployment_group_what-if
+  name: az deployment group what-if
+  summary: Execute a deployment What-If operation at resource group scope.
+  description: Please specify only one of --template-file FILE | --template-uri URI | --template-spec to input the ARM template.
+  syntax: >-
+    az deployment group what-if --resource-group
+                                [--aux-tenants]
+                                [--exclude-change-types {Create, Delete, Deploy, Ignore, Modify, NoChange, Unsupported}]
+                                [--mode {Complete, Incremental}]
+                                [--name]
+                                [--no-pretty-print]
+                                [--no-prompt {false, true}]
+                                [--parameters]
+                                [--query-string]
+                                [--result-format {FullResourcePayloads, ResourceIdOnly}]
+                                [--template-file]
+                                [--template-spec]
+                                [--template-uri]
+  examples:
+  - summary: Execute a deployment What-If operation at a resource group.
+    syntax: az deployment group what-if --resource-group testrg --name rollout01 --template-uri https://myresource/azuredeploy.json --parameters @myparameters.json
+  - summary: Execute a deployment What-If operation at a resource group with ResourceIdOnly format.
+    syntax: az deployment group what-if --resource-group testrg --name rollout01 --template-uri https://myresource/azuredeploy.json --parameters @myparameters.json --result-format ResourceIdOnly
+  - summary: Execute a deployment What-If operation at a resource group without pretty-printing the result.
+    syntax: az deployment group what-if --resource-group testrg --name rollout01 --template-uri https://myresource/azuredeploy.json --parameters @myparameters.json --no-pretty-print
+  requiredParameters:
+  - isRequired: true
+    name: --resource-group -g
+    summary: The resource group to execute deployment What-If operation at.
+    description: ''
+  optionalParameters:
+  - name: --aux-tenants
+    summary: Auxiliary tenants which will be used during deployment across tenants.
+    description: ''
+  - name: --exclude-change-types -x
+    parameterValueGroup: "Create, Delete, Deploy, Ignore, Modify, NoChange, Unsupported"
+    summary: Space-separated list of resource change types to be excluded from What-If results.
+    description: ''
+  - name: --mode
+    defaultValue: "Incremental"
+    parameterValueGroup: "Complete, Incremental"
+    summary: The deployment mode.
+    description: ''
+  - name: --name -n
+    summary: The deployment name.
+    description: ''
+  - name: --no-pretty-print
+    summary: Disable pretty-print for What-If results. When set, the output format type will be used.
+    description: ''
+  - name: --no-prompt
+    defaultValue: "False"
+    parameterValueGroup: "false, true"
+    summary: The option to disable the prompt of missing parameters for ARM template. When the value is true, the prompt requiring users to provide missing parameter will be ignored. The default value is false.
+    description: ''
+  - name: --parameters -p
+    summary: Supply deployment parameter values.
+    description: Parameters may be supplied from a file using the `@{path}` syntax, a JSON string, or as <KEY=VALUE> pairs. Parameters are evaluated in order, so when a value is assigned twice, the latter value will be used. It is recommended that you supply your parameters file first, and then override selectively using KEY=VALUE syntax.
+  - name: --query-string -q
+    summary: The query string (a SAS token) to be used with the template-uri in the case of linked templates.
+    description: ''
+  - name: --result-format -r
+    defaultValue: "FullResourcePayloads"
+    parameterValueGroup: "FullResourcePayloads, ResourceIdOnly"
+    summary: The format of What-If results.
+    description: ''
+  - name: --template-file -f
+    summary: The path to the template file or Bicep file.
+    description: ''
+  - name: --template-spec -s
+    summary: The template spec resource id.
+    description: ''
+  - name: --template-uri -u
+    summary: The URI to the template file.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/resource/_help.py
 commands:
 - az_deployment_group_cancel
 - az_deployment_group_create
@@ -317,6 +392,7 @@ commands:
 - az_deployment_group_show
 - az_deployment_group_validate
 - az_deployment_group_wait
+- az_deployment_group_what-if
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.

@@ -4,6 +4,34 @@ name: az network application-gateway waf-config
 summary: Configure the settings of a web application firewall.
 description: These commands are only applicable to application gateways with an SKU type of WAF. To learn more, visit https://docs.microsoft.com/azure/application-gateway/application-gateway-web-application-firewall-cli.
 directCommands:
+- uid: az_network_application-gateway_waf-config_list-rule-sets
+  name: az network application-gateway waf-config list-rule-sets
+  summary: Get information on available WAF rule sets, rule groups, and rule IDs.
+  description: ''
+  syntax: >-
+    az network application-gateway waf-config list-rule-sets [--group]
+                                                             [--type]
+                                                             [--version]
+  examples:
+  - summary: List available rule groups in OWASP type rule sets.
+    syntax: az network application-gateway waf-config list-rule-sets --type OWASP
+  - summary: List available rules in the OWASP 3.0 rule set.
+    syntax: az network application-gateway waf-config list-rule-sets --group '*' --type OWASP --version 3.0
+  - summary: List available rules in the `crs_35_bad_robots` rule group.
+    syntax: az network application-gateway waf-config list-rule-sets --group crs_35_bad_robots
+  - summary: List available rules in table format.
+    syntax: az network application-gateway waf-config list-rule-sets -o table
+  optionalParameters:
+  - name: --group
+    summary: List rules for the specified rule group. Use `*` to list rules for all groups. Omit to suppress listing individual rules.
+    description: ''
+  - name: --type
+    summary: Rule set type to list. Omit to list all types.
+    description: ''
+  - name: --version
+    summary: Rule set version to list. Omit to list all versions.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 - uid: az_network_application-gateway_waf-config_set
   name: az network application-gateway waf-config set
   summary: Update the firewall configuration of a web application.
@@ -83,6 +111,7 @@ directCommands:
     description: ''
   editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
 commands:
+- az_network_application-gateway_waf-config_list-rule-sets
 - az_network_application-gateway_waf-config_set
 - az_network_application-gateway_waf-config_show
 globalParameters:

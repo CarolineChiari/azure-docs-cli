@@ -39,6 +39,36 @@ directCommands:
     defaultValue: "8001"
     summary: The listening port for the dashboard.
     description: Add this argument when the default listening port is used by another process or unavailable.
+- uid: az_aks_check-acr
+  name: az aks check-acr
+  summary: Validate an ACR is accessible from an AKS cluster.
+  description: ''
+  syntax: >-
+    az aks check-acr --acr
+                     --name
+                     --resource-group
+                     [--node-name]
+  examples:
+  - summary: Validate the ACR is accessible from the AKS cluster.
+    syntax: az aks check-acr --name MyManagedCluster --resource-group MyResourceGroup --acr myacr.azurecr.io
+  requiredParameters:
+  - isRequired: true
+    name: --acr
+    summary: The FQDN of the ACR.
+    description: ''
+  - isRequired: true
+    name: --name -n
+    summary: Name of the managed cluster.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --node-name
+    summary: The name of a specific node to perform acr pull test checks. If not specified, it will be checked on a random node.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
 - uid: az_aks_create
   name: az aks create
   summary: Create a new managed Kubernetes cluster.
@@ -1062,6 +1092,55 @@ directCommands:
     name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
+- uid: az_aks_get-versions
+  name: az aks get-versions
+  summary: Get the versions available for creating a managed Kubernetes cluster.
+  description: ''
+  syntax: az aks get-versions --location
+  examples:
+  - summary: Get the versions available for creating a managed Kubernetes cluster
+    syntax: az aks get-versions --location westus2
+  requiredParameters:
+  - isRequired: true
+    name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
+- uid: az_aks_install-cli
+  name: az aks install-cli
+  summary: Download and install kubectl, the Kubernetes command-line tool. Download and install kubelogin, a client-go credential (exec) plugin implementing azure authentication.
+  description: ''
+  syntax: >-
+    az aks install-cli [--base-src-url]
+                       [--client-version]
+                       [--install-location]
+                       [--kubelogin-base-src-url]
+                       [--kubelogin-install-location]
+                       [--kubelogin-version]
+  optionalParameters:
+  - name: --base-src-url
+    summary: Base download source URL for kubectl releases.
+    description: ''
+  - name: --client-version
+    defaultValue: "latest"
+    summary: Version of kubectl to install.
+    description: ''
+  - name: --install-location
+    defaultValue: "~\\.azure-kubectl\\kubectl.exe"
+    summary: Path at which to install kubectl.
+    description: ''
+  - name: --kubelogin-base-src-url -l
+    summary: Base download source URL for kubelogin releases.
+    description: ''
+  - name: --kubelogin-install-location
+    defaultValue: "~\\.azure-kubelogin\\kubelogin.exe"
+    summary: Path at which to install kubelogin.
+    description: ''
+  - name: --kubelogin-version
+    defaultValue: "latest"
+    summary: Version of kubelogin to install.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
 - uid: az_aks_kanalyze
   name: az aks kanalyze
   summary: Display diagnostic results for the Kubernetes cluster after kollect is done.
@@ -1186,6 +1265,34 @@ directCommands:
     defaultValue: "False"
     summary: Do not wait for the long-running operation to finish.
     description: ''
+- uid: az_aks_remove-dev-spaces
+  name: az aks remove-dev-spaces
+  summary: Remove Azure Dev Spaces from a managed Kubernetes cluster.
+  description: ''
+  syntax: >-
+    az aks remove-dev-spaces --name
+                             --resource-group
+                             [--yes]
+  examples:
+  - summary: Remove Azure Dev Spaces from a managed Kubernetes cluster.
+    syntax: az aks remove-dev-spaces -g my-aks-group -n my-aks
+  - summary: Remove Azure Dev Spaces from a managed Kubernetes cluster without prompting.
+    syntax: az aks remove-dev-spaces -g my-aks-group -n my-aks --yes
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name of the managed cluster.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --yes -y
+    defaultValue: "False"
+    summary: Do not prompt for confirmation.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
 - uid: az_aks_rotate-certs
   name: az aks rotate-certs
   summary: Rotate certificates and keys on a managed Kubernetes cluster.
@@ -1846,6 +1953,68 @@ directCommands:
     defaultValue: "False"
     summary: Do not prompt for confirmation.
     description: ''
+- uid: az_aks_update-credentials
+  name: az aks update-credentials
+  summary: Update credentials for a managed Kubernetes cluster, like service principal.
+  description: ''
+  syntax: >-
+    az aks update-credentials --name
+                              --resource-group
+                              [--aad-client-app-id]
+                              [--aad-server-app-id]
+                              [--aad-server-app-secret]
+                              [--aad-tenant-id]
+                              [--client-secret]
+                              [--no-wait]
+                              [--reset-aad]
+                              [--reset-service-principal]
+                              [--service-principal]
+  examples:
+  - summary: Update an existing Kubernetes cluster with new service principal.
+    syntax: az aks update-credentials -g MyResourceGroup -n MyManagedCluster --reset-service-principal --service-principal MyNewServicePrincipalID --client-secret MyNewServicePrincipalSecret
+  - summary: Update an existing Azure Active Directory Kubernetes cluster with new server app secret key.
+    syntax: az aks update-credentials -g MyResourceGroup -n MyManagedCluster --reset-aad --aad-server-app-id MyExistingAADServerAppID --aad-server-app-secret MyNewAADServerAppSecret --aad-client-app-id MyExistingAADClientAppID --aad-tenant-id MyAADTenantID
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: Name of the managed cluster.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --aad-client-app-id
+    summary: The ID of an Azure Active Directory client application. This argument is required if `--reset-aad` is specified.
+    description: ''
+  - name: --aad-server-app-id
+    summary: The ID of an Azure Active Directory server application. This argument is required if `--reset-aad` is specified.
+    description: ''
+  - name: --aad-server-app-secret
+    summary: The secret of an Azure Active Directory server application. This argument is required if `--reset-aad` is specified.
+    description: ''
+  - name: --aad-tenant-id
+    summary: Tenant ID associated with Azure Active Directory.
+    description: ''
+  - name: --client-secret
+    summary: Secret associated with the service principal. This argument is required if `--service-principal` is specified.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --reset-aad
+    defaultValue: "False"
+    summary: Reset Azure Active Directory configuration for a managed cluster.
+    description: ''
+  - name: --reset-service-principal
+    defaultValue: "False"
+    summary: Reset service principal for a managed cluster.
+    description: ''
+  - name: --service-principal
+    summary: Service principal used for authentication to Azure APIs. This argument is required if `--reset-service-principal` is specified.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/acs/_help.py
 - uid: az_aks_upgrade
   name: az aks upgrade
   summary: Upgrade a managed Kubernetes cluster to a newer version.
@@ -2012,6 +2181,10 @@ commands:
 - az_aks_app
 - az_aks_app_up
 - az_aks_browse
+- az_aks_check-acr
+- az_aks_command
+- az_aks_command_invoke
+- az_aks_command_result
 - az_aks_create
 - az_aks_delete
 - az_aks_disable-addons
@@ -2027,6 +2200,8 @@ commands:
 - az_aks_get-credentials
 - az_aks_get-os-options
 - az_aks_get-upgrades
+- az_aks_get-versions
+- az_aks_install-cli
 - az_aks_kanalyze
 - az_aks_kollect
 - az_aks_list
@@ -2049,10 +2224,14 @@ commands:
 - az_aks_nodepool_snapshot_delete
 - az_aks_nodepool_snapshot_list
 - az_aks_nodepool_snapshot_show
+- az_aks_nodepool_snapshot_wait
 - az_aks_nodepool_start
 - az_aks_nodepool_stop
 - az_aks_nodepool_update
 - az_aks_nodepool_upgrade
+- az_aks_nodepool_wait
+- az_aks_oidc-issuer
+- az_aks_oidc-issuer_rotate-signing-keys
 - az_aks_operation-abort
 - az_aks_pod-identity
 - az_aks_pod-identity_add
@@ -2063,6 +2242,7 @@ commands:
 - az_aks_pod-identity_exception_list
 - az_aks_pod-identity_exception_update
 - az_aks_pod-identity_list
+- az_aks_remove-dev-spaces
 - az_aks_rotate-certs
 - az_aks_scale
 - az_aks_show
@@ -2071,6 +2251,7 @@ commands:
 - az_aks_snapshot_delete
 - az_aks_snapshot_list
 - az_aks_snapshot_show
+- az_aks_snapshot_wait
 - az_aks_start
 - az_aks_stop
 - az_aks_trustedaccess
@@ -2083,6 +2264,7 @@ commands:
 - az_aks_trustedaccess_rolebinding_show
 - az_aks_trustedaccess_rolebinding_update
 - az_aks_update
+- az_aks_update-credentials
 - az_aks_upgrade
 - az_aks_use-dev-spaces
 - az_aks_wait

@@ -7750,6 +7750,19 @@
             uid: az_spring_config-server_git_repo
             displayName: az spring config-server git repo
             items: []
+      - name: connection
+        items:
+        - name: Summary
+          uid: az_spring_connection
+          displayName: az spring connection
+        - name: create
+          uid: az_spring_connection_create
+          displayName: az spring connection create
+          items: []
+        - name: update
+          uid: az_spring_connection_update
+          displayName: az spring connection update
+          items: []
       - name: dev-tool
         uid: az_spring_dev-tool
         displayName: az spring dev-tool

@@ -1,0 +1,290 @@
+### YamlMime:AzureCLIGroup
+uid: az_network_application-gateway_waf-policy
+name: az network application-gateway waf-policy
+summary: Manage application gateway web application firewall (WAF) policies.
+description: ''
+directCommands:
+- uid: az_network_application-gateway_waf-policy_create
+  name: az network application-gateway waf-policy create
+  summary: Create an application gateway WAF policy.
+  description: ''
+  syntax: >-
+    az network application-gateway waf-policy create --name
+                                                     --resource-group
+                                                     [--location]
+                                                     [--tags]
+                                                     [--type {Microsoft_BotManagerRuleSet, OWASP}]
+                                                     [--version {0.1, 2.2.9, 3.0, 3.1, 3.2}]
+  examples:
+  - summary: Create an application gateway WAF policy.
+    syntax: az network application-gateway waf-policy create --name MyApplicationGatewayWAFPolicy --resource-group MyResourceGroup
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: The name of the application gateway WAF policy.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --location -l
+    summary: 'Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`.'
+    description: ''
+  - name: --tags
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
+    description: ''
+  - name: --type
+    defaultValue: "OWASP"
+    parameterValueGroup: "Microsoft_BotManagerRuleSet, OWASP"
+    summary: The type of the web application firewall rule set.
+    description: ''
+  - name: --version
+    defaultValue: "3.0"
+    parameterValueGroup: "0.1, 2.2.9, 3.0, 3.1, 3.2"
+    summary: The version of the web application firewall rule set type. 0.1 is used for Microsoft_BotManagerRuleSet.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_application-gateway_waf-policy_delete
+  name: az network application-gateway waf-policy delete
+  summary: Delete an application gateway WAF policy.
+  description: ''
+  syntax: >-
+    az network application-gateway waf-policy delete [--ids]
+                                                     [--name]
+                                                     [--no-wait {0, 1, f, false, n, no, t, true, y, yes}]
+                                                     [--resource-group]
+                                                     [--subscription]
+  examples:
+  - summary: Delete an application gateway WAF policy.
+    syntax: az network application-gateway waf-policy delete --name MyApplicationGatewayWAFPolicy --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: The name of the application gateway WAF policy.
+    description: ''
+  - name: --no-wait
+    parameterValueGroup: "0, 1, f, false, n, no, t, true, y, yes"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_application-gateway_waf-policy_list
+  name: az network application-gateway waf-policy list
+  summary: List application gateway WAF policies.
+  description: ''
+  syntax: az network application-gateway waf-policy list [--resource-group]
+  examples:
+  - summary: List application gateway WAF policies.
+    syntax: az network application-gateway waf-policy list --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_application-gateway_waf-policy_show
+  name: az network application-gateway waf-policy show
+  summary: Get the details of an application gateway WAF policy.
+  description: ''
+  syntax: >-
+    az network application-gateway waf-policy show [--ids]
+                                                   [--name]
+                                                   [--resource-group]
+                                                   [--subscription]
+  examples:
+  - summary: Get the details of an application gateway WAF policy.
+    syntax: az network application-gateway waf-policy show --name MyApplicationGatewayWAFPolicy --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: The name of the application gateway WAF policy.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_application-gateway_waf-policy_update
+  name: az network application-gateway waf-policy update
+  summary: Update an application gateway WAF policy.
+  description: ''
+  syntax: >-
+    az network application-gateway waf-policy update [--add]
+                                                     [--custom-rules]
+                                                     [--force-string {0, 1, f, false, n, no, t, true, y, yes}]
+                                                     [--ids]
+                                                     [--managed-rules]
+                                                     [--name]
+                                                     [--policy-settings]
+                                                     [--remove]
+                                                     [--resource-group]
+                                                     [--set]
+                                                     [--subscription]
+                                                     [--tags]
+  examples:
+  - summary: Update an application gateway WAF policy.
+    syntax: az network application-gateway waf-policy update --add communities='12076:5010' --name MyApplicationGatewayWAFPolicy --resource-group MyResourceGroup
+  - summary: Override existing managed rule set via shorthand syntax.
+    syntax: az network application-gateway waf-policy update --managed-rules "{managed-rule-sets:[{rule-group-overrides:[{rule-group-name:REQUEST-921-PROTOCOL-ATTACK,rules:[{rule-id:921100},{rule-id:921100}]}],rule-set-type:OWASP,rule-set-version:3.0}]}"
+  optionalParameters:
+  - name: --add
+    summary: 'Add an object to a list of objects by specifying a path and key value pairs.  Example: --add property.listProperty <key=value, string or JSON string>.'
+    description: ''
+  - name: --custom-rules
+    summary: The custom rules inside the policy.  Support shorthand-syntax, json-file and yaml-file. Try `??` to show more.
+    description: ''
+  - name: --force-string
+    parameterValueGroup: "0, 1, f, false, n, no, t, true, y, yes"
+    summary: When using 'set' or 'add', preserve string literals instead of attempting to convert to JSON.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --managed-rules
+    summary: Describes the managedRules structure.  Support shorthand-syntax, json-file and yaml-file. Try `??` to show more.
+    description: ''
+  - name: --name -n
+    summary: The name of the application gateway WAF policy.
+    description: ''
+  - name: --policy-settings
+    summary: The PolicySettings for policy.  Support shorthand-syntax, json-file and yaml-file. Try `??` to show more.
+    description: ''
+  - name: --remove
+    summary: 'Remove a property or an element from a list.  Example: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --set
+    summary: 'Update an object by specifying a property path and value to set.  Example: --set property1.property2=<value>.'
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --tags
+    summary: 'Space-separated tags: key[=value] [key[=value] ...].  Support shorthand-syntax, json-file and yaml-file. Try `??` to show more.'
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+- uid: az_network_application-gateway_waf-policy_wait
+  name: az network application-gateway waf-policy wait
+  summary: Place the CLI in a waiting state until a condition is met.
+  description: ''
+  syntax: >-
+    az network application-gateway waf-policy wait [--created]
+                                                   [--custom]
+                                                   [--deleted]
+                                                   [--exists]
+                                                   [--ids]
+                                                   [--interval]
+                                                   [--name]
+                                                   [--resource-group]
+                                                   [--subscription]
+                                                   [--timeout]
+                                                   [--updated]
+  optionalParameters:
+  - name: --created
+    defaultValue: "False"
+    summary: Wait until created with 'provisioningState' at 'Succeeded'.
+    description: ''
+  - name: --custom
+    summary: Wait until the condition satisfies a custom JMESPath query. E.g. provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running'].
+    description: ''
+  - name: --deleted
+    defaultValue: "False"
+    summary: Wait until deleted.
+    description: ''
+  - name: --exists
+    defaultValue: "False"
+    summary: Wait until the resource exists.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Polling interval in seconds.
+    description: ''
+  - name: --name -n
+    summary: The name of the application gateway WAF policy.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximum wait in seconds.
+    description: ''
+  - name: --updated
+    defaultValue: "False"
+    summary: Wait until updated with provisioningState at 'Succeeded'.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/network/_help.py
+commands:
+- az_network_application-gateway_waf-policy_create
+- az_network_application-gateway_waf-policy_custom-rule
+- az_network_application-gateway_waf-policy_custom-rule_create
+- az_network_application-gateway_waf-policy_custom-rule_delete
+- az_network_application-gateway_waf-policy_custom-rule_list
+- az_network_application-gateway_waf-policy_custom-rule_match-condition
+- az_network_application-gateway_waf-policy_custom-rule_match-condition_add
+- az_network_application-gateway_waf-policy_custom-rule_match-condition_list
+- az_network_application-gateway_waf-policy_custom-rule_match-condition_remove
+- az_network_application-gateway_waf-policy_custom-rule_show
+- az_network_application-gateway_waf-policy_custom-rule_update
+- az_network_application-gateway_waf-policy_delete
+- az_network_application-gateway_waf-policy_list
+- az_network_application-gateway_waf-policy_managed-rule
+- az_network_application-gateway_waf-policy_managed-rule_exclusion
+- az_network_application-gateway_waf-policy_managed-rule_exclusion_add
+- az_network_application-gateway_waf-policy_managed-rule_exclusion_list
+- az_network_application-gateway_waf-policy_managed-rule_exclusion_remove
+- az_network_application-gateway_waf-policy_managed-rule_exclusion_rule-set
+- az_network_application-gateway_waf-policy_managed-rule_exclusion_rule-set_add
+- az_network_application-gateway_waf-policy_managed-rule_exclusion_rule-set_list
+- az_network_application-gateway_waf-policy_managed-rule_exclusion_rule-set_remove
+- az_network_application-gateway_waf-policy_managed-rule_rule-set
+- az_network_application-gateway_waf-policy_managed-rule_rule-set_add
+- az_network_application-gateway_waf-policy_managed-rule_rule-set_list
+- az_network_application-gateway_waf-policy_managed-rule_rule-set_remove
+- az_network_application-gateway_waf-policy_managed-rule_rule-set_update
+- az_network_application-gateway_waf-policy_policy-setting
+- az_network_application-gateway_waf-policy_policy-setting_list
+- az_network_application-gateway_waf-policy_policy-setting_update
+- az_network_application-gateway_waf-policy_show
+- az_network_application-gateway_waf-policy_update
+- az_network_application-gateway_waf-policy_wait
+globalParameters:
+- name: --debug
+  summary: Increase logging verbosity to show all debug logs.
+- name: --help -h
+  summary: Show this help message and exit.
+- name: --only-show-errors
+  summary: Only show errors, suppressing warnings.
+- name: --output -o
+  defaultValue: "json"
+  parameterValueGroup: "json, jsonc, table, tsv"
+  summary: Output format.
+- name: --query
+  summary: JMESPath query string. See <a href="http://jmespath.org/">http://jmespath.org/</a> for more information and examples.
+- name: --subscription
+  summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+- name: --verbose
+  summary: Increase logging verbosity. Use --debug for full debug logs.
+metadata:
+  doc_source_url_repo: https://github.com/Azure/azure-cli/blob/dev/
+  ms.date: 01/04/2023
+  description: Manage application gateway web application firewall (WAF) policies.

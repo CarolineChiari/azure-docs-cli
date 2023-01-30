@@ -1,13 +1,212 @@
 ### YamlMime:AzureCLIGroup
 uid: az_iot_hub
 name: az iot hub
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **azure-iot** extension for the Azure CLI  (version 2.32.0 or higher).  The extension will automatically install the first time you run an **az iot hub** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage entities in an Azure IoT Hub.
 description: ''
 directCommands:
+- uid: az_iot_hub_create
+  name: az iot hub create
+  summary: Create an Azure IoT hub.
+  description: For an introduction to Azure IoT Hub, see https://docs.microsoft.com/azure/iot-hub/.
+  syntax: >-
+    az iot hub create --name
+                      --resource-group
+                      [--c2d-max-delivery-count]
+                      [--c2d-ttl]
+                      [--dds {false, true}]
+                      [--disable-local-auth {false, true}]
+                      [--disable-module-sas {false, true}]
+                      [--edr {false, true}]
+                      [--fc]
+                      [--fcs]
+                      [--fd]
+                      [--feedback-lock-duration]
+                      [--feedback-ttl]
+                      [--fileupload-notification-lock-duration]
+                      [--fileupload-notification-max-delivery-count]
+                      [--fileupload-notification-ttl]
+                      [--fileupload-notifications {false, true}]
+                      [--fileupload-sas-ttl]
+                      [--fileupload-storage-auth-type {identityBased, keyBased}]
+                      [--fileupload-storage-identity]
+                      [--location]
+                      [--mi-system-assigned {false, true}]
+                      [--mi-user-assigned]
+                      [--min-tls-version]
+                      [--no-wait]
+                      [--partition-count]
+                      [--rd]
+                      [--role]
+                      [--scopes]
+                      [--sku {B1, B2, B3, F1, S1, S2, S3}]
+                      [--tags]
+                      [--unit]
+  examples:
+  - summary: Create an IoT Hub with the free pricing tier F1, in the region of the resource group.
+    syntax: az iot hub create --resource-group MyResourceGroup --name MyIotHub --sku F1 --partition-count 2
+  - summary: Create an IoT Hub with the standard pricing tier S1 and 4 partitions, in the 'westus' region, with tags.
+    syntax: az iot hub create --resource-group MyResourceGroup --name MyIotHub --location westus --tags a=b c=d
+  - summary: Create an IoT Hub with a system-assigned managed identity, and assign a role and scope to a storage account for the created identity.
+    syntax: az iot hub create --resource-group MyResourceGroup --name MyIotHub --location westus --mi-system-assigned --role "Storage Blob Data Contributor" --scopes {resourceId}
+  - summary: Create an IoT Hub with local authentication, device SAS keys, and module SAS keys all disabled
+    syntax: az iot hub create --resource-group MyResourceGroup --name MyIotHub --location westus --disable-local-auth --disable-device-sas --disable-module-sas
+  - summary: Create an IoT Hub with data residency enforced. This will disable cross-region disaster recovery.
+    syntax: az iot hub create --resource-group MyResourceGroup --name MyIoTHub --edr
+  requiredParameters:
+  - isRequired: true
+    name: --name -n
+    summary: IoT Hub name.
+    description: ''
+  - isRequired: true
+    name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  optionalParameters:
+  - name: --c2d-max-delivery-count --cdd
+    defaultValue: "10"
+    summary: The number of times the IoT hub will attempt to deliver a cloud-to-device message to a device, between 1 and 100.
+    description: ''
+  - name: --c2d-ttl --ct
+    defaultValue: "1"
+    summary: The amount of time a message is available for the device to consume before it is expired by IoT Hub, between 1 and 48 hours.
+    description: ''
+  - name: --dds --disable-device-sas
+    parameterValueGroup: "false, true"
+    summary: A boolean indicating whether or not to disable all device (including Edge devices but excluding modules) scoped SAS keys for authentication.
+    description: ''
+  - name: --disable-local-auth --dla
+    parameterValueGroup: "false, true"
+    summary: A boolean indicating whether or not to disable IoT hub scoped SAS keys for authentication.
+    description: ''
+  - name: --disable-module-sas --dms
+    parameterValueGroup: "false, true"
+    summary: A boolean indicating whether or not to disable module-scoped SAS keys for authentication.
+    description: ''
+  - name: --edr --enforce-data-residency
+    parameterValueGroup: "false, true"
+    summary: Enforce data residency for this IoT Hub by disabling cross-region disaster recovery. This property is immutable once set on the resource. Only available in select regions. Learn more at https://aka.ms/iothubdisabledr.
+    description: ''
+  - name: --fc --fileupload-storage-container-name
+    summary: The name of the root container where you upload files. The container need not exist but should be creatable using the connectionString specified.
+    description: ''
+  - name: --fcs --fileupload-storage-connectionstring
+    summary: The connection string for the Azure Storage account to which files are uploaded.
+    description: ''
+  - name: --fd --feedback-max-delivery-count
+    defaultValue: "10"
+    summary: The number of times the IoT hub attempts to deliver a message on the feedback queue, between 1 and 100.
+    description: ''
+  - name: --feedback-lock-duration --fld
+    defaultValue: "5"
+    summary: The lock duration for the feedback queue, between 5 and 300 seconds.
+    description: ''
+  - name: --feedback-ttl --ft
+    defaultValue: "1"
+    summary: The period of time for which the IoT hub will maintain the feedback for expiration or delivery of cloud-to-device messages, between 1 and 48 hours.
+    description: ''
+  - name: --fileupload-notification-lock-duration --fnld
+    defaultValue: "5"
+    summary: The lock duration for the file upload notifications queue, between 5 and 300 seconds.
+    description: ''
+  - name: --fileupload-notification-max-delivery-count --fnd
+    defaultValue: "10"
+    summary: The number of times the IoT hub will attempt to deliver a file notification message, between 1 and 100.
+    description: ''
+  - name: --fileupload-notification-ttl --fnt
+    defaultValue: "1"
+    summary: The amount of time a file upload notification is available for the service to consume before it is expired by IoT Hub, between 1 and 48 hours.
+    description: ''
+  - name: --fileupload-notifications --fn
+    defaultValue: "False"
+    parameterValueGroup: "false, true"
+    summary: A boolean indicating whether to log information about uploaded files to the messages/servicebound/filenotifications IoT Hub endpoint.
+    description: ''
+  - name: --fileupload-sas-ttl --fst
+    defaultValue: "1"
+    summary: The amount of time a SAS URI generated by IoT Hub is valid before it expires, between 1 and 24 hours.
+    description: ''
+  - name: --fileupload-storage-auth-type --fsa
+    parameterValueGroup: "identityBased, keyBased"
+    summary: The authentication type for the Azure Storage account to which files are uploaded.
+    description: ''
+  - name: --fileupload-storage-identity --fsi
+    summary: The managed identity to use for file upload authentication. Use '[system]' to refer to the system-assigned managed identity or a resource ID to refer to a user-assigned managed identity.
+    description: ''
+  - name: --location -l
+    summary: Location of your IoT Hub. Default is the location of target resource group.
+    description: ''
+  - name: --mi-system-assigned
+    parameterValueGroup: "false, true"
+    summary: Enable system-assigned managed identity for this hub.
+    description: ''
+  - name: --mi-user-assigned
+    summary: Enable user-assigned managed identities for this hub. Accept space-separated list of identity resource IDs.
+    description: ''
+  - name: --min-tls-version --mintls
+    summary: Specify the minimum TLS version to support for this hub. Can be set to "1.2" to have clients that use a TLS version below 1.2 to be rejected.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --partition-count
+    defaultValue: "4"
+    summary: The number of partitions of the backing Event Hub for device-to-cloud messages.
+    description: ''
+  - name: --rd --retention-day
+    defaultValue: "1"
+    summary: Specifies how long this IoT hub will maintain device-to-cloud events, between 1 and 7 days.
+    description: ''
+  - name: --role
+    summary: Role to assign to the hub's system-assigned managed identity.
+    description: ''
+  - name: --scopes
+    summary: Space separated list of scopes to assign the role (--role) for the system-assigned managed identity.
+    description: ''
+  - name: --sku
+    defaultValue: "S1"
+    parameterValueGroup: "B1, B2, B3, F1, S1, S2, S3"
+    summary: Pricing tier for Azure IoT Hub. Note that only one free IoT hub instance (F1) is allowed in each subscription. Exception will be thrown if free instances exceed one.
+    description: ''
+  - name: --tags
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
+    description: ''
+  - name: --unit
+    defaultValue: "1"
+    summary: Units in your IoT Hub.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iot/_help.py
+- uid: az_iot_hub_delete
+  name: az iot hub delete
+  summary: Delete an IoT hub.
+  description: ''
+  syntax: >-
+    az iot hub delete [--ids]
+                      [--name]
+                      [--no-wait]
+                      [--resource-group]
+                      [--subscription]
+  examples:
+  - summary: Delete an IoT hub. (autogenerated)
+    syntax: az iot hub delete --name MyIoTHub --resource-group MyResourceGroup
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: IoT Hub name.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iot/_help.py
 - uid: az_iot_hub_generate-sas-token
   name: az iot hub generate-sas-token
   summary: Generate a SAS token for a target IoT Hub, device or module.
@@ -176,6 +375,78 @@ directCommands:
     defaultValue: "30"
     summary: Maximum number of seconds to wait for the module method result.
     description: ''
+- uid: az_iot_hub_list
+  name: az iot hub list
+  summary: List IoT hubs.
+  description: ''
+  syntax: az iot hub list [--resource-group]
+  examples:
+  - summary: List all IoT hubs in a subscription.
+    syntax: az iot hub list
+  - summary: List all IoT hubs in the resource group 'MyGroup'
+    syntax: az iot hub list --resource-group MyGroup
+  optionalParameters:
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iot/_help.py
+- uid: az_iot_hub_list-skus
+  name: az iot hub list-skus
+  summary: List available pricing tiers.
+  description: ''
+  syntax: >-
+    az iot hub list-skus [--ids]
+                         [--name]
+                         [--resource-group]
+                         [--subscription]
+  examples:
+  - summary: List available pricing tiers. (autogenerated)
+    syntax: az iot hub list-skus --name MyIoTHub
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: IoT Hub name.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iot/_help.py
+- uid: az_iot_hub_manual-failover
+  name: az iot hub manual-failover
+  summary: Initiate a manual failover for the IoT Hub to the geo-paired disaster recovery region.
+  description: ''
+  syntax: >-
+    az iot hub manual-failover [--ids]
+                               [--name]
+                               [--no-wait]
+                               [--resource-group]
+                               [--subscription]
+  examples:
+  - summary: Initiate failover “myhub” from primary to secondary region.
+    syntax: az iot hub manual-failover -n myhub
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: IoT Hub name.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iot/_help.py
 - uid: az_iot_hub_monitor-events
   name: az iot hub monitor-events
   summary: Monitor device telemetry & messages sent to an IoT Hub.
@@ -370,11 +641,304 @@ directCommands:
   - name: --top
     summary: Maximum number of elements to return. By default query has no cap.
     description: ''
+- uid: az_iot_hub_show
+  name: az iot hub show
+  summary: Get the details of an IoT hub.
+  description: ''
+  syntax: >-
+    az iot hub show [--ids]
+                    [--name]
+                    [--resource-group]
+                    [--subscription]
+  examples:
+  - summary: Get the details of an IoT hub. (autogenerated)
+    syntax: az iot hub show --name MyIoTHub
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: IoT Hub name.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iot/_help.py
+- uid: az_iot_hub_show-connection-string
+  name: az iot hub show-connection-string
+  summary: Show the connection strings for an IoT hub.
+  description: ''
+  syntax: >-
+    az iot hub show-connection-string [--all]
+                                      [--hub-name]
+                                      [--ids]
+                                      [--key {primary, secondary}]
+                                      [--policy-name]
+                                      [--resource-group]
+                                      [--subscription]
+  examples:
+  - summary: Show the connection string of an IoT hub using default policy and primary key.
+    syntax: az iot hub show-connection-string --name MyIotHub
+  - summary: Show the connection string of an IoT Hub using policy 'service' and secondary key.
+    syntax: az iot hub show-connection-string --name MyIotHub --policy-name service --key secondary
+  - summary: Show the connection strings for all IoT hubs in a resource group.
+    syntax: az iot hub show-connection-string --resource-group MyResourceGroup
+  - summary: Show the connection strings for all IoT hubs in a subscription.
+    syntax: az iot hub show-connection-string
+  - summary: Show the connection strings for an IoT hub. (autogenerated)
+    syntax: az iot hub show-connection-string --key primary --policy-name MyPolicy
+  optionalParameters:
+  - name: --all
+    defaultValue: "False"
+    summary: Allow to show all shared access policies.
+    description: ''
+  - name: --hub-name --name -n
+    summary: IoT Hub name.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --key
+    defaultValue: "primary"
+    parameterValueGroup: "primary, secondary"
+    summary: The key to use.
+    description: ''
+  - name: --policy-name
+    defaultValue: "iothubowner"
+    summary: Shared access policy to use.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iot/_help.py
+- uid: az_iot_hub_show-quota-metrics
+  name: az iot hub show-quota-metrics
+  summary: Get the quota metrics for an IoT hub.
+  description: ''
+  syntax: >-
+    az iot hub show-quota-metrics [--ids]
+                                  [--name]
+                                  [--resource-group]
+                                  [--subscription]
+  examples:
+  - summary: Get the quota metrics for an IoT hub. (autogenerated)
+    syntax: az iot hub show-quota-metrics --ids {ids}
+  - summary: Get the quota metrics for an IoT hub. (autogenerated)
+    syntax: az iot hub show-quota-metrics --name MyIoTHub
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: IoT Hub name.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iot/_help.py
+- uid: az_iot_hub_show-stats
+  name: az iot hub show-stats
+  summary: Get the statistics for an IoT hub.
+  description: ''
+  syntax: >-
+    az iot hub show-stats [--ids]
+                          [--name]
+                          [--resource-group]
+                          [--subscription]
+  examples:
+  - summary: Get the statistics for an IoT hub. (autogenerated)
+    syntax: az iot hub show-stats --name MyIoTHub
+  optionalParameters:
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: IoT Hub name.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iot/_help.py
+- uid: az_iot_hub_update
+  name: az iot hub update
+  summary: Update metadata for an IoT hub.
+  description: ''
+  syntax: >-
+    az iot hub update [--add]
+                      [--c2d-max-delivery-count]
+                      [--c2d-ttl]
+                      [--dds {false, true}]
+                      [--disable-local-auth {false, true}]
+                      [--disable-module-sas {false, true}]
+                      [--fc]
+                      [--fcs]
+                      [--fd]
+                      [--feedback-lock-duration]
+                      [--feedback-ttl]
+                      [--fileupload-notification-lock-duration]
+                      [--fileupload-notification-max-delivery-count]
+                      [--fileupload-notification-ttl]
+                      [--fileupload-notifications {false, true}]
+                      [--fileupload-sas-ttl]
+                      [--fileupload-storage-auth-type {identityBased, keyBased}]
+                      [--fileupload-storage-identity]
+                      [--force-string]
+                      [--ids]
+                      [--name]
+                      [--rd]
+                      [--remove]
+                      [--resource-group]
+                      [--set]
+                      [--sku {B1, B2, B3, F1, S1, S2, S3}]
+                      [--subscription]
+                      [--tags]
+                      [--unit]
+  examples:
+  - summary: Add storage container settings to file upload
+    syntax: az iot hub update --name MyIotHub --fileupload-storage-connectionstring "connection-string" \ --fileupload-storage-container-name "container_name"
+  - summary: Add a firewall filter rule to accept traffic from the IP mask 127.0.0.0/31.
+    syntax: az iot hub update --name MyIotHub --add properties.ipFilterRules filter_name=test-rule action=Accept ip_mask=127.0.0.0/31
+  - summary: Update metadata for an IoT hub. (autogenerated)
+    syntax: az iot hub update --name MyIotHub --set properties.allocationPolicy="GeoLatency"
+  - summary: Update units of an IoT Hub to 2 and add tags
+    syntax: az iot hub update -n MyIotHub --unit 2 --tags a=b c=d
+  - summary: Update pricing tier for an IoT Hub as S2
+    syntax: az iot hub update -n MyIotHub --sku S2
+  - summary: Update the retention days of IoT Hub device-to-cloud events as 3 days
+    syntax: az iot hub update -n MyIotHub --retention-day 3
+  - summary: Update the IoT Hub cloud-to-device messaging settings
+    syntax: az iot hub update --name MyIotHub --c2d-max-delivery-count 30 --c2d-ttl 5
+  - summary: Update the IoT Hub feedback queue settings
+    syntax: az iot hub update --name MyIoTHub --feedback-max-delivery-count 20 --feedback-lock-duration 100 --feedback-ttl 4
+  - summary: Update the IoT Hub file upload settings, and assign a managed identity to user for file upload
+    syntax: az iot hub update -n MyIoTHub --fileupload-sas-ttl 5 --fileupload-storage-auth-type identityBased --fileupload-storage-identity [system]
+  - summary: Update the IoT Hub file upload notification settings and queue lock duration
+    syntax: az iot hub update -n MyIoTHub --fileupload-notification-max-delivery-count 50 --fileupload-notification-ttl 48 --fileupload-notifications --fileupload-notification-lock-duration 10
+  - summary: Update the IoT Hub local authentication, device SAS, and module SAS settings
+    syntax: az iot hub update -n MyIoTHub --disable-local-auth --disable-device-sas false --disable-module-sas true
+  optionalParameters:
+  - name: --add
+    defaultValue: "[]"
+    summary: 'Add an object to a list of objects by specifying a path and key value pairs.  Example: --add property.listProperty <key=value, string or JSON string>.'
+    description: ''
+  - name: --c2d-max-delivery-count --cdd
+    summary: The number of times the IoT hub will attempt to deliver a cloud-to-device message to a device, between 1 and 100.
+    description: ''
+  - name: --c2d-ttl --ct
+    summary: The amount of time a message is available for the device to consume before it is expired by IoT Hub, between 1 and 48 hours.
+    description: ''
+  - name: --dds --disable-device-sas
+    parameterValueGroup: "false, true"
+    summary: A boolean indicating whether or not to disable all device (including Edge devices but excluding modules) scoped SAS keys for authentication.
+    description: ''
+  - name: --disable-local-auth --dla
+    parameterValueGroup: "false, true"
+    summary: A boolean indicating whether or not to disable IoT hub scoped SAS keys for authentication.
+    description: ''
+  - name: --disable-module-sas --dms
+    parameterValueGroup: "false, true"
+    summary: A boolean indicating whether or not to disable module-scoped SAS keys for authentication.
+    description: ''
+  - name: --fc --fileupload-storage-container-name
+    summary: The name of the root container where you upload files. The container need not exist but should be creatable using the connectionString specified.
+    description: ''
+  - name: --fcs --fileupload-storage-connectionstring
+    summary: The connection string for the Azure Storage account to which files are uploaded.
+    description: ''
+  - name: --fd --feedback-max-delivery-count
+    summary: The number of times the IoT hub attempts to deliver a message on the feedback queue, between 1 and 100.
+    description: ''
+  - name: --feedback-lock-duration --fld
+    summary: The lock duration for the feedback queue, between 5 and 300 seconds.
+    description: ''
+  - name: --feedback-ttl --ft
+    summary: The period of time for which the IoT hub will maintain the feedback for expiration or delivery of cloud-to-device messages, between 1 and 48 hours.
+    description: ''
+  - name: --fileupload-notification-lock-duration --fnld
+    summary: The lock duration for the file upload notifications queue, between 5 and 300 seconds.
+    description: ''
+  - name: --fileupload-notification-max-delivery-count --fnd
+    summary: The number of times the IoT hub will attempt to deliver a file notification message, between 1 and 100.
+    description: ''
+  - name: --fileupload-notification-ttl --fnt
+    summary: The amount of time a file upload notification is available for the service to consume before it is expired by IoT Hub, between 1 and 48 hours.
+    description: ''
+  - name: --fileupload-notifications --fn
+    parameterValueGroup: "false, true"
+    summary: A boolean indicating whether to log information about uploaded files to the messages/servicebound/filenotifications IoT Hub endpoint.
+    description: ''
+  - name: --fileupload-sas-ttl --fst
+    summary: The amount of time a SAS URI generated by IoT Hub is valid before it expires, between 1 and 24 hours.
+    description: ''
+  - name: --fileupload-storage-auth-type --fsa
+    parameterValueGroup: "identityBased, keyBased"
+    summary: The authentication type for the Azure Storage account to which files are uploaded.
+    description: ''
+  - name: --fileupload-storage-identity --fsi
+    summary: The managed identity to use for file upload authentication. Use '[system]' to refer to the system-assigned managed identity or a resource ID to refer to a user-assigned managed identity.
+    description: ''
+  - name: --force-string
+    defaultValue: "False"
+    summary: When using 'set' or 'add', preserve string literals instead of attempting to convert to JSON.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --name -n
+    summary: IoT Hub name.
+    description: ''
+  - name: --rd --retention-day
+    summary: Specifies how long this IoT hub will maintain device-to-cloud events, between 1 and 7 days.
+    description: ''
+  - name: --remove
+    defaultValue: "[]"
+    summary: 'Remove a property or an element from a list.  Example: --remove property.list <indexToRemove> OR --remove propertyToRemove.'
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --set
+    defaultValue: "[]"
+    summary: 'Update an object by specifying a property path and value to set.  Example: --set property1.property2=<value>.'
+    description: ''
+  - name: --sku
+    parameterValueGroup: "B1, B2, B3, F1, S1, S2, S3"
+    summary: Pricing tier for Azure IoT Hub. Note that only one free IoT hub instance (F1) is allowed in each subscription. Exception will be thrown if free instances exceed one.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --tags
+    summary: 'Space-separated tags: key[=value] [key[=value] ...]. Use "" to clear existing tags.'
+    description: ''
+  - name: --unit
+    summary: Units in your IoT Hub.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/iot/_help.py
 commands:
 - az_iot_hub_certificate
+- az_iot_hub_certificate_create
+- az_iot_hub_certificate_delete
+- az_iot_hub_certificate_generate-verification-code
+- az_iot_hub_certificate_list
 - az_iot_hub_certificate_root-authority
 - az_iot_hub_certificate_root-authority_set
 - az_iot_hub_certificate_root-authority_show
+- az_iot_hub_certificate_show
+- az_iot_hub_certificate_update
+- az_iot_hub_certificate_verify
 - az_iot_hub_configuration
 - az_iot_hub_configuration_create
 - az_iot_hub_configuration_delete
@@ -384,6 +948,13 @@ commands:
 - az_iot_hub_configuration_update
 - az_iot_hub_connection-string
 - az_iot_hub_connection-string_show
+- az_iot_hub_consumer-group
+- az_iot_hub_consumer-group_create
+- az_iot_hub_consumer-group_delete
+- az_iot_hub_consumer-group_list
+- az_iot_hub_consumer-group_show
+- az_iot_hub_create
+- az_iot_hub_delete
 - az_iot_hub_device-identity
 - az_iot_hub_device-identity_children
 - az_iot_hub_device-identity_children_add
@@ -407,6 +978,8 @@ commands:
 - az_iot_hub_device-twin_replace
 - az_iot_hub_device-twin_show
 - az_iot_hub_device-twin_update
+- az_iot_hub_devicestream
+- az_iot_hub_devicestream_show
 - az_iot_hub_digital-twin
 - az_iot_hub_digital-twin_invoke-command
 - az_iot_hub_digital-twin_show
@@ -415,6 +988,10 @@ commands:
 - az_iot_hub_distributed-tracing_show
 - az_iot_hub_distributed-tracing_update
 - az_iot_hub_generate-sas-token
+- az_iot_hub_identity
+- az_iot_hub_identity_assign
+- az_iot_hub_identity_remove
+- az_iot_hub_identity_show
 - az_iot_hub_invoke-device-method
 - az_iot_hub_invoke-module-method
 - az_iot_hub_job
@@ -422,6 +999,9 @@ commands:
 - az_iot_hub_job_create
 - az_iot_hub_job_list
 - az_iot_hub_job_show
+- az_iot_hub_list
+- az_iot_hub_list-skus
+- az_iot_hub_manual-failover
 - az_iot_hub_message-endpoint
 - az_iot_hub_message-endpoint_create
 - az_iot_hub_message-endpoint_create_cosmosdb-container
@@ -432,6 +1012,11 @@ commands:
 - az_iot_hub_message-endpoint_delete
 - az_iot_hub_message-endpoint_list
 - az_iot_hub_message-endpoint_show
+- az_iot_hub_message-enrichment
+- az_iot_hub_message-enrichment_create
+- az_iot_hub_message-enrichment_delete
+- az_iot_hub_message-enrichment_list
+- az_iot_hub_message-enrichment_update
 - az_iot_hub_message-route
 - az_iot_hub_message-route_create
 - az_iot_hub_message-route_delete
@@ -457,7 +1042,30 @@ commands:
 - az_iot_hub_module-twin_update
 - az_iot_hub_monitor-events
 - az_iot_hub_monitor-feedback
+- az_iot_hub_policy
+- az_iot_hub_policy_create
+- az_iot_hub_policy_delete
+- az_iot_hub_policy_list
+- az_iot_hub_policy_renew-key
+- az_iot_hub_policy_show
 - az_iot_hub_query
+- az_iot_hub_route
+- az_iot_hub_route_create
+- az_iot_hub_route_delete
+- az_iot_hub_route_list
+- az_iot_hub_route_show
+- az_iot_hub_route_test
+- az_iot_hub_route_update
+- az_iot_hub_routing-endpoint
+- az_iot_hub_routing-endpoint_create
+- az_iot_hub_routing-endpoint_delete
+- az_iot_hub_routing-endpoint_list
+- az_iot_hub_routing-endpoint_show
+- az_iot_hub_show
+- az_iot_hub_show-connection-string
+- az_iot_hub_show-quota-metrics
+- az_iot_hub_show-stats
+- az_iot_hub_update
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.

@@ -41,6 +41,14 @@ commands:
 - az_network_dns_record-set_aaaa_remove-record
 - az_network_dns_record-set_aaaa_show
 - az_network_dns_record-set_aaaa_update
+- az_network_dns_record-set_caa
+- az_network_dns_record-set_caa_add-record
+- az_network_dns_record-set_caa_create
+- az_network_dns_record-set_caa_delete
+- az_network_dns_record-set_caa_list
+- az_network_dns_record-set_caa_remove-record
+- az_network_dns_record-set_caa_show
+- az_network_dns_record-set_caa_update
 - az_network_dns_record-set_cname
 - az_network_dns_record-set_cname_create
 - az_network_dns_record-set_cname_delete

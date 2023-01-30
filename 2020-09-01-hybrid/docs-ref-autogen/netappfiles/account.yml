@@ -1,10 +1,6 @@
 ### YamlMime:AzureCLIGroup
 uid: az_netappfiles_account
 name: az netappfiles account
-extensionInformation: >-
-  > [!Note]
-
-  > This reference is part of the **netappfiles-preview** extension for the Azure CLI  (version 2.0.56 or higher).  The extension will automatically install the first time you run an **az netappfiles account** command.  [Learn more](https://docs.microsoft.com/en-us/cli/azure/azure-cli-extensions-overview) about extensions.
 summary: Manage Azure NetApp Files (ANF) Account Resources.
 description: ''
 directCommands:
@@ -79,6 +75,37 @@ directCommands:
     name: --resource-group -g
     summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
     description: ''
+- uid: az_netappfiles_account_renew-credentials
+  name: az netappfiles account renew-credentials
+  summary: Renew identity credentials that are used to authenticate to key vault, for customer-managed key encryption. If encryption.identity.principalId does not match identity.principalId, running this operation will fix it.
+  description: ''
+  syntax: >-
+    az netappfiles account renew-credentials [--account-name]
+                                             [--ids]
+                                             [--no-wait]
+                                             [--resource-group]
+                                             [--subscription]
+  examples:
+  - summary: Renew identity credentials for account
+    syntax: az netappfiles account renew-credentials -g mygroup --account-name myaccname
+  optionalParameters:
+  - name: --account-name --name -a -n
+    summary: Name of the ANF account.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --no-wait
+    defaultValue: "False"
+    summary: Do not wait for the long-running operation to finish.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/netappfiles/_help.py
 - uid: az_netappfiles_account_set
   name: az netappfiles account set
   summary: Sets the tags or the active directory details for a specified ANF account. Sets the active directory property to exactly what is provided. If none is provided then the active directory is removed, i.e. provide empty [].
@@ -204,13 +231,90 @@ directCommands:
   - name: --tags
     summary: A list of space separated tags to apply to the account.
     description: ''
+- uid: az_netappfiles_account_wait
+  name: az netappfiles account wait
+  summary: Wait for a account operation.
+  description: ''
+  syntax: >-
+    az netappfiles account wait [--account-name]
+                                [--created]
+                                [--custom]
+                                [--deleted]
+                                [--exists]
+                                [--ids]
+                                [--interval]
+                                [--resource-group]
+                                [--subscription]
+                                [--timeout]
+                                [--updated]
+  optionalParameters:
+  - name: --account-name --name -a -n
+    summary: Name of the ANF account.
+    description: ''
+  - name: --created
+    defaultValue: "False"
+    summary: Wait until created with 'provisioningState' at 'Succeeded'.
+    description: ''
+  - name: --custom
+    summary: Wait until the condition satisfies a custom JMESPath query. E.g. provisioningState!='InProgress', instanceView.statuses[?code=='PowerState/running'].
+    description: ''
+  - name: --deleted
+    defaultValue: "False"
+    summary: Wait until deleted.
+    description: ''
+  - name: --exists
+    defaultValue: "False"
+    summary: Wait until the resource exists.
+    description: ''
+  - name: --ids
+    summary: One or more resource IDs (space-delimited). It should be a complete resource ID containing all information of 'Resource Id' arguments. You should provide either --ids or other 'Resource Id' arguments.
+    description: ''
+  - name: --interval
+    defaultValue: "30"
+    summary: Polling interval in seconds.
+    description: ''
+  - name: --resource-group -g
+    summary: Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+    description: ''
+  - name: --subscription
+    summary: Name or ID of subscription. You can configure the default subscription using `az account set -s NAME_OR_ID`.
+    description: ''
+  - name: --timeout
+    defaultValue: "3600"
+    summary: Maximum wait in seconds.
+    description: ''
+  - name: --updated
+    defaultValue: "False"
+    summary: Wait until updated with provisioningState at 'Succeeded'.
+    description: ''
+  editLink: https://github.com/Azure/azure-cli/blob/dev/src/azure-cli/azure/cli/command_modules/netappfiles/_help.py
 commands:
+- az_netappfiles_account_ad
+- az_netappfiles_account_ad_add
+- az_netappfiles_account_ad_list
+- az_netappfiles_account_ad_remove
+- az_netappfiles_account_ad_update
+- az_netappfiles_account_ad_wait
+- az_netappfiles_account_backup
+- az_netappfiles_account_backup_delete
+- az_netappfiles_account_backup_list
+- az_netappfiles_account_backup_show
+- az_netappfiles_account_backup_wait
+- az_netappfiles_account_backup-policy
+- az_netappfiles_account_backup-policy_create
+- az_netappfiles_account_backup-policy_delete
+- az_netappfiles_account_backup-policy_list
+- az_netappfiles_account_backup-policy_show
+- az_netappfiles_account_backup-policy_update
+- az_netappfiles_account_backup-policy_wait
 - az_netappfiles_account_create
 - az_netappfiles_account_delete
 - az_netappfiles_account_list
+- az_netappfiles_account_renew-credentials
 - az_netappfiles_account_set
 - az_netappfiles_account_show
 - az_netappfiles_account_update
+- az_netappfiles_account_wait
 globalParameters:
 - name: --debug
   summary: Increase logging verbosity to show all debug logs.
